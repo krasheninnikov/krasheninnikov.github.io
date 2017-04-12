@@ -4,11 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+I am a senior CS student at the South-Eastern Finland University of Applied Sciences. These days I am focused on deep learning, reinforcement learning and game theory. I care about minimizing technological risks to humanity and intend to work in the field of AI Safety.
 
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
 
 ### Contact me
 
