@@ -28,7 +28,7 @@ Each step is detailed below.
 
 Installing and starting Anaconda Navigator
 ------------------
-Download and install a version of Anaconda Navigator for your operating system from here: https://www.continuum.io/downloads.
+Download and install a version of Anaconda Navigator for your operating system from here: [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
 
 #### macOS:
 When you install Anaconda on macOS, a Navigator menu item is automatically added to your programs menu. On macOS you can start Navigator by clicking the Navigator menu item, or by opening a terminal window and running the command anaconda-navigator.
