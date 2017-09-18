@@ -14,7 +14,7 @@ Anaconda Navigator is an easy, point-and-click way to work with packages and env
 
 The steps I follow to set up the environment are:
 
-  1. Install Anaconda Navigator.
+  1. Install Anaconda Navigator. [link](#installing)
   2. Create an Anaconda environment.
   3. Install the necessary packages.
       1. Packages in the Anaconda package list: ```numpy```, ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```, ```theano```.
@@ -26,7 +26,7 @@ Each step is detailed below.
 
 ----------
 
-Installing and starting Anaconda Navigator
+Installing and starting Anaconda Navigator <a name="installing"></a>
 ------------------
 Download and install a version of Anaconda Navigator for your operating system from here: [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
 
