@@ -17,8 +17,8 @@ The steps I follow to set up the environment are:
   1. Install Anaconda Navigator.
   2. Create an Anaconda environment.
   3. Install the necessary packages.
-   1. Packages in the Anaconda package list: ```numpy```, ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```, ```theano```.
-   2. Packages not  in the Anaconda package list: ```keras```, ```gym```.
+      1. Packages in the Anaconda package list: ```numpy```, ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```, ```theano```.
+      2. Packages not  in the Anaconda package list: ```keras```, ```gym```.
   4. Install the tools to use with the environment.
   5. Use the environment.
 
@@ -30,9 +30,16 @@ Installing and starting Anaconda Navigator
 ------------------
 Download and install a version of Anaconda Navigator for your operating system from here: https://www.continuum.io/downloads.
 
-- When you install Anaconda on Windows, a Navigator menu item is automatically added to your programs menu and an icon is added to your desktop. You can use either to start Navigator.
-- When you install Anaconda on macOS, a Navigator menu item is automatically added to your programs menu. On macOS you can start Navigator by clicking the Navigator menu item, or by opening a terminal window and running the command anaconda-navigator.
-- On Linux you can start Navigator by opening a terminal window and running the command anaconda-navigator. When you install Anaconda on Linux, Anaconda does not add shortcuts automatically because different Linux distributions have different systems for adding menu or desktop shortcuts. You can use your operating system to create desktop and/or main-menu shortcuts that run the command anaconda-navigator.
+#### macOS:
+When you install Anaconda on macOS, a Navigator menu item is automatically added to your programs menu. On macOS you can start Navigator by clicking the Navigator menu item, or by opening a terminal window and running the command anaconda-navigator.
+
+#### Linux:
+On Linux you can start Navigator by opening a terminal window and running the command anaconda-navigator. When you install Anaconda on Linux, Anaconda does not add shortcuts automatically because different Linux distributions have different systems for adding menu or desktop shortcuts. You can use your operating system to create desktop and/or main-menu shortcuts that run the command anaconda-navigator.
+
+#### Windows:
+When you install Anaconda on Windows, a Navigator menu item is automatically added to your programs menu and an icon is added to your desktop. You can use either to start Navigator.
+
+
 
 ----------
 
@@ -104,7 +111,7 @@ Anaconda Navigator offers an easy, point-and-click way to install multiple tools
 2. Click install for the necessary tools.  
 
 ![](/images/conda-tutorial/install-tools.png)
-[<img src="{{ site.baseurl }}/images/conda-tutorial/install-tools.png" style="width: 400px;"/>]({{ site.baseurl }}/)
+[<img src="{{ site.baseurl }}/images/conda-tutorial/install-tools.png" alt="Constructocat by https://github.com/jasoncostello" style="width: 400px;"/>]({{ site.baseurl }}/)
 
 
 
