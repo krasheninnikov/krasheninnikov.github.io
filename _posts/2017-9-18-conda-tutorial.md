@@ -95,8 +95,8 @@ Not all python packages are indexed in the Anaconda package list. If you are not
   - Windows: ```activate ml-rl-env```.
   - macOS and Linux:  ```source activate ml-rl-env```
 
-  In the general case the name of the environment ```ml-rl-env``` is replaced with the name of
-  the environment one is working with.
+    In the general case the name of the environment ```ml-rl-env``` is replaced with the name of
+    the environment one is working with.
 
 2. Install the packages via pip:
   - Windows: ```pip install gym keras```
