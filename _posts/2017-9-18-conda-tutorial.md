@@ -5,10 +5,12 @@ title: Setting up an Anaconda environment for machine learning and reinforcement
 
 
 
-Overview
---------
+
 
 In this tutorial I walk through the steps required to setup and use Anaconda environment for machine learning (ML) and reinforcement learning (RL) experiments. This tutorial does not assume any power user skills, and is optimized to be understandable to anyone.
+
+Overview
+--------
 
 Anaconda Navigator is an easy, point-and-click way to work with packages and environments without needing to use conda commands in a terminal window. You can use it to find the packages you want, install them in an environment, run the packages and update them, all inside Navigator.
 
