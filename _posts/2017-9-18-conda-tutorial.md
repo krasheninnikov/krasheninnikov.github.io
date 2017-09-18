@@ -7,7 +7,7 @@ title: Setting up an Anaconda environment for machine learning and reinforcement
 
 
 
-In this tutorial I walk through the steps required to setup and use Anaconda environment for machine learning and reinforcement learning experiments. The tutorial does not assume any power user skills, and is optimized to be understandable to anyone.
+This is a small tutorial that walks through the steps required to setup and use Anaconda environment for machine learning and reinforcement learning experiments. The tutorial does not assume any power user skills, and is optimized to be understandable to anyone.
 
 Overview
 --------
