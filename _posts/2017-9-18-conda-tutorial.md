@@ -16,13 +16,13 @@ Anaconda Navigator is an easy, point-and-click way to work with packages and env
 
 The steps I follow to set up the environment are:
 
-  1. Install Anaconda Navigator. [link](#installing)
-  2. Create an Anaconda environment.
-  3. Install the necessary packages.
+  1. [Install Anaconda Navigator.](#installing)
+  2. [Create an Anaconda environment.](#create)
+  3. [Install the necessary packages.](#package)
       1. Packages in the Anaconda package list: ```numpy```, ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```, ```theano```.
       2. Packages not  in the Anaconda package list: ```keras```, ```gym```.
   4. Install the tools to use with the environment.
-  5. Use the environment.
+  5. [Use the environment.](#use)
 
 Each step is detailed below.
 
@@ -46,7 +46,7 @@ When you install Anaconda on Windows, a Navigator menu item is automatically add
 ----------
 
 
-Creating and activating a new environment
+Creating and activating a new environment <a name="create"></a>
 -------------------------------------------------------
 
 To create a new environment: In Navigator, click the Environments tab, then click the Create button.
@@ -64,7 +64,7 @@ Navigator creates the new environment and activates it, as shown by the highligh
 ![]({{ site.baseurl }}/images/conda-tutorial/env-activated.PNG)
 ----------
 
-Finding and installing a package
+Finding and installing a package <a name="package"></a>
 --------------------------------
 
 For this example we will install the core packages commonly used for machine learning and reinforcement learning: ```numpy```, ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```, ```keras``` and ```gym```.
@@ -118,7 +118,7 @@ Anaconda Navigator offers an easy, point-and-click way to install multiple tools
 
 
 
-Using the environment
+Using the environment<a name="use"></a>
 --------------------
 
 ### Jupyter notebook
