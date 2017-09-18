@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Setting up an Anaconda environment for machine learning and reinforcement learning
+title: Setting up an Anaconda environment for machine learning and reinforcement learning using Anaconda Navigator
 ---
 
 
