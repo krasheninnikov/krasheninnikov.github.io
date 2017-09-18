@@ -21,7 +21,7 @@ The steps I follow to set up the environment are:
   3. [Install the necessary packages.](#package)
       1. Packages in the Anaconda package list: ```numpy```, ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```, ```theano```.
       2. Packages not  in the Anaconda package list: ```keras```, ```gym```.
-  4. Install the tools to use with the environment.
+  4. [Install the tools to use with the environment.](#tools)
   5. [Use the environment.](#use)
 
 Each step is detailed below.
@@ -105,7 +105,7 @@ Not all python packages are indexed in the Anaconda package list. If you are not
   - macOS and Linux:  ```pip3 install gym keras```
 
 
-Installing the tools to use with the environment
+Installing the tools to use with the environment <a name="tools"></a>
 --------------------
 
 Anaconda Navigator offers an easy, point-and-click way to install multiple tools useful for development and experimenting. For ML and RL experiments one would most likely want to use Spyder and Jupyter notebook. To install these tools:
