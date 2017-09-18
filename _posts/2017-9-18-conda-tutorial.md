@@ -42,17 +42,17 @@ Creating and activating a new environment
 
 To create a new environment: In Navigator, click the Environments tab, then click the Create button.
 
-![](/_images/click-env.png)
+![](/images/conda-tutorial/click-env.png)
 
-![](/_images/click-create.png)
+![](/images/conda-tutorial/click-create.png)
 
 The Create new environment dialog box appears. In the Environment name field, type a descriptive name for your environment. We’ll create an environment using the newest version of Python, Python 3.6. In the Python version list, select Python 3.6. Click the Create button.
 
-![](/_images/create-env.png)
+![](/images/conda-tutorial/create-env.png)
 
 Navigator creates the new environment and activates it, as shown by the highlighted green bar. All actions take place in the active environment.
 
-![](/_images/env-activated.png)
+![](/images/conda-tutorial/env-activated.png)
 ----------
 
 Finding and installing a package
@@ -69,13 +69,13 @@ There are many ways to install a package into the Anaconda environment; here we 
 
 In the list at the top left of the packages area, select All. In the Search Packages box, type the name of the package, i e ```numpy```. In the search results, select the checkbox next to the package.
 
-![](/_images/install-numpy.png)
+![](/images/conda-tutorial/install-numpy.png)
 
 In a similar fashion, add more packages (i e ```scipy```, ```sklearn```, ```pandas```, ```tensorflow```) to the to-be-installed list.
 
 In the Install Packages window, review the packages to be installed, then click the Apply button. Then in Navigator, click the Apply button.
 
-![](/_images/click-apply.png)
+![](/images/conda-tutorial/click-apply.png)
 
 In the confirmation dialog, click the Ok button. All package files and dependencies will be installed in your active environment.
 
@@ -103,7 +103,7 @@ Anaconda Navigator offers an easy, point-and-click way to install multiple tools
 1. Go to the Home tab of Anaconda Navigator and select the ```ml-rl-env``` environment from the list of environments;
 2. Click install for the necessary tools.  
 
-![](/_images/install-tools.png)
+![](/images/conda-tutorial/install-tools.png)
 
 
 
@@ -130,4 +130,4 @@ For using the Jupyter notebook I recommend launching it from the terminal on mac
 On the Home tab of Anaconda Navigator, select the environment name from the drop-down list. The applications installed for
 this environment can be launched from here.
 
-![](/_images/use-env.png)
+![]({{ site.baseurl }}/images/conda-tutorial/use-env.png)
