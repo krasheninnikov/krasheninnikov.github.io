@@ -14,7 +14,7 @@ Overview
 
 Anaconda Navigator is an easy, point-and-click way to work with packages and environments without needing to use conda commands in a terminal window. You can use it to find the packages you want, install them in an environment, run the packages and update them, all inside Navigator.
 
-The steps I follow to set up the environment are:
+The steps we follow to set up the environment are:
 
   1. [Install Anaconda Navigator.](#installing)
   2. [Create an Anaconda environment.](#create)
