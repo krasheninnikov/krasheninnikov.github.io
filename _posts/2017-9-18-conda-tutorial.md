@@ -111,7 +111,8 @@ Anaconda Navigator offers an easy, point-and-click way to install multiple tools
 2. Click install for the necessary tools.  
 
 ![](/images/conda-tutorial/install-tools.png)
-[<img src="{{ site.baseurl }}/images/conda-tutorial/install-tools.png" alt="Constructocat by https://github.com/jasoncostello" style="width: 400px;"/>]({{ site.baseurl }}/)
+![_config.yml]({{ site.baseurl }}/images/conda-tutorial/install-tools.png)
+
 
 
 
