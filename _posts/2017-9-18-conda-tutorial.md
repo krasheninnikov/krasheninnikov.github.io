@@ -51,8 +51,6 @@ Creating and activating a new environment <a name="create"></a>
 
 To create a new environment: In Navigator, click the Environments tab, then click the Create button.
 
-![]({{ site.baseurl }}/images/conda-tutorial/click-env.PNG)
-
 ![]({{ site.baseurl }}/images/conda-tutorial/click-create.PNG)
 
 The Create new environment dialog box appears. In the Environment name field, type a descriptive name for your environment. We’ll create an environment using the newest version of Python, Python 3.6. In the Python version list, select Python 3.6. Click the Create button.
@@ -87,6 +85,8 @@ In the Install Packages window, review the packages to be installed, then click 
 ![]({{ site.baseurl }}/images/conda-tutorial/click-apply.PNG)
 
 In the confirmation dialog, click the Ok button. All package files and dependencies will be installed in your active environment.
+
+Note: it is necessary to install CUDA and the GPU-enabled version of Tensorflow if you want to run Tensorflow code on your GPU. Refer to [this](https://www.tensorflow.org/versions/r0.12/get_started/os_setup#optional_install_cuda_gpus_on_linux) part of Tensorflow tutorial to set this up.
 
 ### Package is not in the Anaconda package list ###
 
