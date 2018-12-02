@@ -10,7 +10,7 @@ description: MSc student, University of Amsterdam
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 # avatar: https://tinyurl.com/dmkr-avatar
-avatar: https://drive.google.com/file/d/1S2E82W-Gq9drYsCjIX5l7jo-NnGPDSAf
+avatar: { site.baseurl }}/images/avatar-img.jpg
 #
 # Flags below are optional
 #
