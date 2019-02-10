@@ -8,4 +8,4 @@ I am a second year AI MSc student at the University of Amsterdam. These days I a
 
 ## Publications
 
-Rohin Shah*, <b>{Dmitrii Krasheninnikov*}<\b>, Jordan Alexander, Anca Dragan, and Pieter Abbeel. The implicit preference information in an initial state. <i>International Conference on Learning Representations (ICLR) 2019<\i>. URL
+Rohin Shah*, <b>{Dmitrii Krasheninnikov*}</b>, Jordan Alexander, Anca Dragan, and Pieter Abbeel. <i>The implicit preference information in an initial state</i>. International Conference on Learning Representations (ICLR) 2019. URL
