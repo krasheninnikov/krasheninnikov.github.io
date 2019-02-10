@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-I am a second year AI MSc student at the University of Amsterdam. These days I am focused on figuring out how an AI can robustly infer what humans want from what they do. My CV can be found <a href="https://drive.google.com/file/d/1jrgyABLuj5B2oup__32KymF0xt72iEVD/view?usp=sharing">here</a>.
+I am a second year MSc artificial intelligence student at the University of Amsterdam. These days I am focused on figuring out how an AI can robustly infer what humans want from what they do. My CV can be found <a href="https://drive.google.com/file/d/1jrgyABLuj5B2oup__32KymF0xt72iEVD/view?usp=sharing">here</a>.
 
 # Publications
 
