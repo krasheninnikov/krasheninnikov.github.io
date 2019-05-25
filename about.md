@@ -12,4 +12,4 @@ In my spare time, I enjoy hiking, bouldering, listening to podcasts and meditati
 
 # Publications
 
-Rohin Shah*, <b>Dmitrii Krasheninnikov*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. <i>Preferences implicit in the state of the world.</i> International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>
+Rohin Shah*, <b>Dmitrii Krasheninnikov*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. <i>Preferences implicit in the state of the world.</i> International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
