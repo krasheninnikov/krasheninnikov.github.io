@@ -17,3 +17,6 @@ This fall I graduated cum laude with a MSc in AI from the University of Amsterda
 Rohin Shah*, <b>Dmitrii Krasheninnikov*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. <i>Preferences implicit in the state of the world.</i> International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
 
 <b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. <i>Combining reward information from multiple sources.</i> Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://drive.google.com/file/d/1dBDqdCU_6ZZJen_8lZCn-RHtO7dB1QKG/view?usp=sharing">Paper</a>, <a href="https://drive.google.com/open?id=1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s">poster</a>.
+
+
+\* Equal contribution
