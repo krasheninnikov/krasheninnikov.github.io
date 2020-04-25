@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-This fall I graduated cum laude with a MSc in AI from the University of Amsterdam, which I was able to attend thanks to a $63k grant from the Open Philanthropy Project. During the masters I had the pleasure to intern at UC Berkeley's Center for Human-Compatible AI; this collaboration resulted in two papers. I am now ready for a new stage in my career, and am actively considering machine learning opportunities in both industry and academia.
+This fall I graduated cum laude with a MSc in AI from the University of Amsterdam, which I was able to attend thanks to a $63k grant from the Open Philanthropy Project. During the masters I had the pleasure to intern at UC Berkeley's Center for Human-Compatible AI; this collaboration resulted in two papers. I am now ready for a new stage in my career, and am actively considering machine learning opportunities in the industry.
 
 
 <!---I am a second year MSc artificial intelligence student at the University of Amsterdam. These days I am focused on figuring out how an AI can robustly infer what humans want from what they do. --->
