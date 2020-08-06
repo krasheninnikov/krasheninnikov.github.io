@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-Last fall I graduated cum laude with a MSc in AI from the University of Amsterdam, which I was able to attend thanks to a $63k grant from the Open Philanthropy Project. During and after the masters I had the pleasure to work with UC Berkeley's Center for Human-Compatible AI; this collaboration resulted in two papers. Starting September 2020, I am joining Sony AI in Zurich.
+Last fall I graduated cum laude with a MSc in AI from the University of Amsterdam, which I was able to attend thanks to a $63k grant from the Open Philanthropy Project. During and after the masters I had the pleasure to work with UC Berkeley's Center for Human-Compatible AI; this collaboration resulted in two papers. Next, I am joining Sony AI in Zurich starting September 2020.
 
 
 <!---I am a second year MSc artificial intelligence student at the University of Amsterdam. These days I am focused on figuring out how an AI can robustly infer what humans want from what they do. --->
