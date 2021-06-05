@@ -17,10 +17,10 @@ I am a Research Software Engineer working on a deep RL and robotics at Sony AI. 
 
 # Publications
 
-Rohin Shah*, <b>Dmitrii Krasheninnikov*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. <i>Preferences implicit in the state of the world.</i> International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
+<i>Preferences implicit in the state of the world.</i> Rohin Shah*, <b>Dmitrii Krasheninnikov*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
 
-<b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. <i>Combining reward information from multiple sources.</i> Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://arxiv.org/abs/2103.12142">Paper</a>, <a href="https://drive.google.com/open?id=1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s">poster</a>.
+<i>Combining reward information from multiple sources.</i> <b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://arxiv.org/abs/2103.12142">Paper</a>, <a href="https://drive.google.com/open?id=1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s">poster</a>.
 
-Rohin Shah, Pedro Freire, Neel Alex, Rachel Freedman, <b>Dmitrii Krasheninnikov,</b> Lawrence Chan, Michael Dennis, Pieter Abbeel, Anca Dragan, Stuart Russell. <i>Benefits of Assistance over Reward Learning.</i> Best paper award at the Cooperative AI workshop at NeurIPS 2020. <a href="https://openreview.net/forum?id=DFIoGDZejIB">Paper</a>.
+<i>Benefits of Assistance over Reward Learning.</i> Rohin Shah, Pedro Freire, Neel Alex, Rachel Freedman, <b>Dmitrii Krasheninnikov,</b> Lawrence Chan, Michael Dennis, Pieter Abbeel, Anca Dragan, Stuart Russell. Best paper award at the Cooperative AI workshop at NeurIPS 2020. <a href="https://openreview.net/forum?id=DFIoGDZejIB">Paper</a>.
 
 \* Equal contribution
