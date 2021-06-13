@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-I am a Research Software Engineer working on a deep RL and robotics at Sony AI. I completed my masters in AI at the University of Amsterdam, and had a pleasure to work with UC Berkeley's Center for Human-Compatible AI during and after the masters. Next, I'll be starting a PhD at the University of Cambridge, where I'll work on technical AGI safety with David Krueger.
+I am a Research Engineer working on deep RL and robotics at Sony AI. I completed my masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s Center for Human-Compatible AI during and after the masters. Next, I'll be starting a PhD at the University of Cambridge, where I'll work on technical AGI safety with David Krueger.
 
 
 <!---Last fall I graduated cum laude with a MSc in AI from the University of Amsterdam, which I was able to attend thanks to a $63k grant from the Open Philanthropy Project. During and after the masters I had the pleasure to work with UC Berkeley's Center for Human-Compatible AI; this collaboration resulted in two papers. Next, I am joining Sony AI in Zurich starting September 2020.->
