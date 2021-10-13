@@ -3,7 +3,14 @@ layout: page
 title: About
 permalink: /about/
 ---
-I am a Research Engineer working on deep RL and robotics at Sony AI. I completed my masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s Center for Human-Compatible AI during and after the masters. Next, I'll be starting a PhD at the University of Cambridge, where I'll work on technical AGI safety with David Krueger.
+
+
+I am a first year PhD student in machine learning at the University of Cambridge, working with David Krueger. I'm interested in designing AI systems that do what we want them to do, and am hoping to ensure that AI's long-term impact on humanity is positive.
+
+Before Cambridge, I completed my masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s Center for Human-Compatible AI during and after the masters. In addition, I worked on deep RL and robotics at Sony AI for a bit over a year.
+
+
+<!-- I am a Research Engineer working on deep RL and robotics at Sony AI. I completed my masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s Center for Human-Compatible AI during and after the masters. Next, I'll be starting a PhD at the University of Cambridge, where I'll work on technical AGI safety with David Krueger. -->
 
 
 <!---Last fall I graduated cum laude with a MSc in AI from the University of Amsterdam, which I was able to attend thanks to a $63k grant from the Open Philanthropy Project. During and after the masters I had the pleasure to work with UC Berkeley's Center for Human-Compatible AI; this collaboration resulted in two papers. Next, I am joining Sony AI in Zurich starting September 2020.->
@@ -11,7 +18,7 @@ I am a Research Engineer working on deep RL and robotics at Sony AI. I completed
 
 <!---I am a second year MSc artificial intelligence student at the University of Amsterdam. These days I am focused on figuring out how an AI can robustly infer what humans want from what they do. --->
 
-<!--- My CV can be found <a href="https://drive.google.com/file/d/1jrgyABLuj5B2oup__32KymF0xt72iEVD/view?usp=sharing">here</a>.
+<!--- My CV can be found <a href="">here</a>.
 
 <!--- In my spare time, I enjoy hiking, bouldering, listening to podcasts and meditating.  --->
 
