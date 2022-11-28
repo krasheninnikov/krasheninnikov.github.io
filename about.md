@@ -24,7 +24,7 @@ Before Cambridge, I did a masters in AI at the University of Amsterdam, and had 
 
 # Publications
 
-<i>Assistance with large language models.</i> <b>Dmitrii Krasheninnikov</b>*, Egor Krasheninnikov*, David Krueger. InterNLP, Human in the Loop Learning, and ML Safety workshops at NeurIPS 2022.
+<i>Assistance with large language models.</i> <b>Dmitrii Krasheninnikov*</b>, Egor Krasheninnikov*, David Krueger. InterNLP, Human in the Loop Learning, and ML Safety workshops at NeurIPS 2022.
 
 
 <i>Defining and characterizing reward hacking.</i> Joar Skalse*, Nikolaus Howe, <b>Dmitrii Krasheninnikov</b>, David Krueger*. NeurIPS 2022. <a href="https://arxiv.org/abs/2209.13085">Paper</a>.
@@ -37,7 +37,7 @@ Before Cambridge, I did a masters in AI at the University of Amsterdam, and had 
 <i>Combining reward information from multiple sources.</i> <b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://arxiv.org/abs/2103.12142">Paper</a>, <a href="https://drive.google.com/file/d/1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s/view?usp=sharing">poster</a>.
 
 
-<i>Preferences implicit in the state of the world.</i> Rohin Shah*, <b>Dmitrii Krasheninnikov</b>*, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
+<i>Preferences implicit in the state of the world.</i> Rohin Shah*, <b>Dmitrii Krasheninnikov*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
 
 
 
