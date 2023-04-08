@@ -35,7 +35,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 
 
-<i>Benefits of Assistance over Reward Learning.</i> Rohin Shah, Pedro Freire, Neel Alex, Rachel Freedman, <b>Dmitrii Krasheninnikov,</b> Lawrence Chan, Michael Dennis, Pieter Abbeel, Anca Dragan, Stuart Russell. Best paper award at the Cooperative AI workshop at NeurIPS 2020. <a href="https://openreview.net/forum?id=DFIoGDZejIB">Paper</a>.
+<i>Benefits of Assistance over Reward Learning.</i> Rohin Shah, Pedro Freire, Neel Alex, Rachel Freedman, <b>Dmitrii Krasheninnikov,</b> Lawrence Chan, Michael Dennis, Pieter Abbeel, Anca Dragan, Stuart Russell. Best paper award at the Cooperative AI workshop at NeurIPS 2020. <a href="https://openreview.net/forum?id=DFIoGDZejIB">Paper</a>, <a href="https://github.com/HumanCompatibleAI/assistance-games">code</a>.
 
 
 <i>Combining reward information from multiple sources.</i> <b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://arxiv.org/abs/2103.12142">Paper</a>, <a href="https://drive.google.com/file/d/1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s/view?usp=sharing">poster</a>.
