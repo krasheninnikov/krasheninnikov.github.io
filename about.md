@@ -28,6 +28,11 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 # Publications
 
+
+<i>Out-of-context Meta-learning in Large Language Models.</i> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, David Krueger. Workshop on Understanding Foundation Models at ICLR 2023. <a href="https://openreview.net/forum?id=X3JFgY4gvf">Paper</a>.
+
+<i>Harms from Increasingly Agentic Algorithmic Systems.</i> Alan Chan, Rebecca Salganik, Alva Markelius, Chris Pang, Nitarshan Rajkumar, <b>Dmitrii Krasheninnikov</b>, Lauro Langosco, Zhonghao He, Yawen Duan, Micah Carroll, Michelle Lin, Alex Mayhew, Katherine Collins, Maryam Molamohammadi, John Burden, Wanru Zhao, Shalaleh Rismani, Konstantinos Voudouris, Umang Bhatt, Adrian Weller, David Krueger, Tegan Maharaj. ACM FAccT 2023. <a href="https://arxiv.org/abs/2302.10329">Paper</a>.
+
 <i>Assistance with large language models.</i> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, David Krueger. InterNLP, Human in the Loop Learning, and ML Safety workshops at NeurIPS 2022. <a href="https://openreview.net/forum?id=OE9V81spp6B">Paper</a>.
 
 
