@@ -5,8 +5,10 @@ permalink: /about/
 ---
 
 
-I am a PhD student in machine learning at the University of Cambridge, working on AI safety with David Krueger. I'm interested in designing AI systems that do what we want them to do, and am hoping to ensure that AI's long-term impact on humanity is positive.
+I am a PhD student in machine learning at the University of Cambridge, working on AI safety with David Krueger. I think it's plausible that we'll build AI systems capable of doing *everything humans can do in front of computers* in the next decade or two, and am hoping to ensure that the long-term impact of such systems' inevitably widespread deployment is positive.
 
+
+<!-- I'm interested in designing AI systems that do what we want them to do, and am hoping to ensure that AI's long-term impact on humanity is positive. -->
 <!-- I’m hoping to ensure that powerful AI systems of the future do what we want them to do, with the aim of increasing the likelihood of AI having a positive long-term impact on humanity. -->
  
 <!-- Previously, I did a masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s <a href="https://humancompatible.ai/">Center for Human-Compatible AI</a> during and after the masters. In addition, I worked on deep RL and robotics at Sony AI Zurich for a bit over a year. -->
