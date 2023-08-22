@@ -13,7 +13,7 @@ I am a PhD student in machine learning at the University of Cambridge, working o
  
 <!-- Previously, I did a masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s <a href="https://humancompatible.ai/">Center for Human-Compatible AI</a> during and after the masters. In addition, I worked on deep RL and robotics at Sony AI Zurich for a bit over a year. -->
 
-I earned my master's degree in AI from the University of Amsterdam, and had the opportunity to work with UC Berkeley's <a href="https://humancompatible.ai/">Center for Human-Compatible AI</a> during and after my studies. I also spent a year working on deep reinforcement learning and robotics at Sony AI Zurich.
+I earned my master's degree in AI from the University of Amsterdam, and had the opportunity to work with UC Berkeley's <a href="https://humancompatible.ai/">Center for Human-Compatible AI</a> during and after my studies. I also spent a year working on deep RL and robotics at Sony AI Zurich.
 
 
 <!-- I am a Research Engineer working on deep RL and robotics at Sony AI. I completed my masters in AI at the University of Amsterdam, and had the pleasure to work with UC Berkeley’s Center for Human-Compatible AI during and after the masters. Next, I'll be starting a PhD at the University of Cambridge, where I'll work on technical AGI safety with David Krueger. -->
