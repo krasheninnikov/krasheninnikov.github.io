@@ -33,6 +33,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 <i>Out-of-context Meta-learning in Large Language Models.</i> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, David Krueger. Workshop on Understanding Foundation Models at ICLR 2023. <a href="https://openreview.net/forum?id=X3JFgY4gvf">Paper</a>, <a href="https://drive.google.com/file/d/1aZMzo8Dzz20FIoxKhgsY62bjSp-LEuH9/view?usp=sharing">poster</a>.
 
+<i>Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback.</i> Stephen Casper\*, Xander Davies\*, Claudia Shi, Thomas Krendl Gilbert, Jérémy Scheurer, Javier Rando, Rachel Freedman, Tomasz Korbak, David Lindner, Pedro Freire, Tony Wang, Samuel Marks, Charbel-Raphaël Segerie, Micah Carroll, Andi Peng, Phillip Christoffersen, Mehul Damani, Stewart Slocum, Usman Anwar, Anand Siththaranjan, Max Nadeau, Eric J. Michaud, Jacob Pfau, <b>Dmitrii Krasheninnikov</b>, Xin Chen, Lauro Langosco, Peter Hase, Erdem Bıyık, Anca Dragan, David Krueger, Dorsa Sadigh, Dylan Hadfield-Menell. <a href="https://arxiv.org/abs/2307.15217">Paper</a>.
 
 <i>Harms from Increasingly Agentic Algorithmic Systems.</i> Alan Chan, Rebecca Salganik, Alva Markelius, Chris Pang, Nitarshan Rajkumar, <b>Dmitrii Krasheninnikov</b>, Lauro Langosco, Zhonghao He, Yawen Duan, Micah Carroll, Michelle Lin, Alex Mayhew, Katherine Collins, Maryam Molamohammadi, John Burden, Wanru Zhao, Shalaleh Rismani, Konstantinos Voudouris, Umang Bhatt, Adrian Weller, David Krueger, Tegan Maharaj. ACM FAccT 2023. <a href="https://arxiv.org/abs/2302.10329">Paper</a>.
 
@@ -42,7 +43,6 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 <i>Defining and characterizing reward hacking.</i> Joar Skalse\*, Nikolaus Howe, <b>Dmitrii Krasheninnikov</b>, David Krueger\*. NeurIPS 2022. <a href="https://arxiv.org/abs/2209.13085">Paper</a>.
 
 
-
 <i>Benefits of Assistance over Reward Learning.</i> Rohin Shah, Pedro Freire, Neel Alex, Rachel Freedman, <b>Dmitrii Krasheninnikov,</b> Lawrence Chan, Michael Dennis, Pieter Abbeel, Anca Dragan, Stuart Russell. Best paper award at the Cooperative AI workshop at NeurIPS 2020. <a href="https://openreview.net/forum?id=DFIoGDZejIB">Paper</a>, <a href="https://github.com/HumanCompatibleAI/assistance-games">code</a>.
 
 
@@ -50,7 +50,6 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 
 <i>Preferences implicit in the state of the world.</i> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
-
 
 
 \* Equal contribution
