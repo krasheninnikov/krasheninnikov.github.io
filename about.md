@@ -30,8 +30,10 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 # Publications
 
+<i>Meta- (out-of-context) learning in Neural Networks.</i> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, David Krueger. Workshop on Understanding Foundation Models at ICLR 2023. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://drive.google.com/file/d/1aZMzo8Dzz20FIoxKhgsY62bjSp-LEuH9/view?usp=sharing">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
 
-<i>Out-of-context Meta-learning in Large Language Models.</i> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, David Krueger. Workshop on Understanding Foundation Models at ICLR 2023. <a href="https://openreview.net/forum?id=X3JFgY4gvf">Paper</a>, <a href="https://drive.google.com/file/d/1aZMzo8Dzz20FIoxKhgsY62bjSp-LEuH9/view?usp=sharing">poster</a>.
+
+<!-- <i>Out-of-context Meta-learning in Large Language Models.</i> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, David Krueger. Workshop on Understanding Foundation Models at ICLR 2023. <a href="https://openreview.net/forum?id=X3JFgY4gvf">Paper</a>, <a href="https://drive.google.com/file/d/1aZMzo8Dzz20FIoxKhgsY62bjSp-LEuH9/view?usp=sharing">poster</a>. -->
 
 <i>Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback.</i> Stephen Casper\*, Xander Davies\*, Claudia Shi, Thomas Krendl Gilbert, Jérémy Scheurer, Javier Rando, Rachel Freedman, Tomasz Korbak, David Lindner, Pedro Freire, Tony Wang, Samuel Marks, Charbel-Raphaël Segerie, Micah Carroll, Andi Peng, Phillip Christoffersen, Mehul Damani, Stewart Slocum, Usman Anwar, Anand Siththaranjan, Max Nadeau, Eric J. Michaud, Jacob Pfau, <b>Dmitrii Krasheninnikov</b>, Xin Chen, Lauro Langosco, Peter Hase, Erdem Bıyık, Anca Dragan, David Krueger, Dorsa Sadigh, Dylan Hadfield-Menell. <a href="https://arxiv.org/abs/2307.15217">Paper</a>.
 
