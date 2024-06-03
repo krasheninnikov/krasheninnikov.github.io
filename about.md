@@ -54,7 +54,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 
 
-<b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt*, Fabien Roger*, <b>Dmitrii Krasheninnikov</b>, David Krueger. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
+<b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
 
 
 <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://drive.google.com/file/d/1aZMzo8Dzz20FIoxKhgsY62bjSp-LEuH9/view?usp=sharing">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
