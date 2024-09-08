@@ -71,7 +71,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 <b style="color:#8b0000">Combining reward information from multiple sources.</b> <b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://arxiv.org/abs/2103.12142">Paper</a>, <a href="https://drive.google.com/file/d/1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s/view?usp=sharing">poster</a>.
 
-<b style="color:#8b0000">Preferences implicit in the state of the world.</b> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">ICLR 2019 poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
+<b style="color:#8b0000">Preferences implicit in the state of the world.</b> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
 
 
 \* Equal contribution
