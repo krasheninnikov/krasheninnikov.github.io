@@ -29,7 +29,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 <!--- In my spare time, I enjoy hiking, bouldering, listening to podcasts and meditating.  --->
 
 # Publications
-<a href="https://scholar.google.com/citations?user=BIQflKQAAAAJ&hl=en">Google scholar profile</a>.
+<!-- <a href="https://scholar.google.com/citations?user=BIQflKQAAAAJ&hl=en">Google scholar profile</a>. -->
 
 <!-- <b>Implicit meta-learning may lead language models to trust more reliable sources.</b> <span style="color:red">Dmitrii Krasheninnikov\*</span>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://drive.google.com/file/d/1aZMzo8Dzz20FIoxKhgsY62bjSp-LEuH9/view?usp=sharing">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>. -->
 
