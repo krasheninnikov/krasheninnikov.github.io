@@ -62,7 +62,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 2. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
 
-3. <b style="color:#8b0000">Open problems and fundamental limitations of reinforcement learning from human feedback.</b> Stephen Casper\*, Xander Davies\*, and 30 coauthors including <b>Dmitrii Krasheninnikov</b>. Transactions on Machine Learning Research. <a href="https://arxiv.org/abs/2307.15217">Paper</a>.
+3. <b style="color:#8b0000">Open problems and fundamental limitations of reinforcement learning from human feedback.</b> Stephen Casper\*, Xander Davies\*, and 30 coauthors including <b>Dmitrii Krasheninnikov</b>. TMLR. <a href="https://arxiv.org/abs/2307.15217">Paper</a>.
 
 
 4. <b style="color:#8b0000">Harms from increasingly agentic algorithmic systems.</b> Alan Chan and 21 coauthors including <b>Dmitrii Krasheninnikov</b>. ACM FAccT 2023. <a href="https://arxiv.org/abs/2302.10329">Paper</a>.
@@ -75,7 +75,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 8. <b style="color:#8b0000">Combining reward information from multiple sources.</b> <b>Dmitrii Krasheninnikov</b>, Rohin Shah, Herke van Hoof. Learning with Rich Experience and Safety & Robustness in Decision Making workshops at NeurIPS 2019. <a href="https://arxiv.org/abs/2103.12142">Paper</a>, <a href="https://drive.google.com/file/d/1oPG1nfjnVge0Pi0JJYi7x78IGQIeeR2s/view?usp=sharing">poster</a>.
 
-9. <b style="color:#8b0000">Preferences implicit in the state of the world.</b> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. International Conference on Learning Representations (ICLR) 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
+9. <b style="color:#8b0000">Preferences implicit in the state of the world.</b> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. ICLR 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
 
 
 \* Equal contribution
