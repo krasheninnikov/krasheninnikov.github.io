@@ -1,4 +1,61 @@
-{% if site.footer-links.dribbble %}<a href="https://dribbble.com/{{ site.footer-links.dribbble }}"><i class="svg-icon dribbble"></i></a>{% endif %}
+<div class="footer-links">
+ 
+    {% if site.footer-links.googlescholar %}
+    <a href="https://scholar.google.com/citations?user={{ site.footer-links.googlescholar }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/google-scholar.svg" width="20" height="20" alt="Google Scholar">
+      <span>Google Scholar</span>
+    </a>
+    {% endif %}
+  
+    {% if site.footer-links.twitter %}
+    <a href="https://www.twitter.com/{{ site.footer-links.twitter }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/square-twitter.svg" width="20" height="20" alt="Twitter">
+      <span>Twitter</span>
+    </a>
+    {% endif %}
+  
+    {% if site.footer-links.github %}
+    <a href="https://github.com/{{ site.footer-links.github }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="20" height="20" alt="GitHub">
+      <span>GitHub</span>
+    </a>
+    {% endif %}
+  
+    {% if site.footer-links.linkedin %}
+    <a href="https://www.linkedin.com/in/{{ site.footer-links.linkedin }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="20" height="20" alt="LinkedIn">
+      <span>LinkedIn</span>
+    </a>
+    {% endif %}
+    
+    {% if site.footer-links.email %}
+    <a href="mailto:{{ site.footer-links.email }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="20" height="20" alt="Email">
+      <span>Email</span>
+    </a>
+    {% endif %}
+  
+    {% if site.footer-links.dribbble %}
+    <a href="https://dribbble.com/{{ site.footer-links.dribbble }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/dribbble.svg" width="20" height="20" alt="Dribbble">
+      <span>Dribbble</span>
+    </a>
+    {% endif %}
+  
+    {% if site.footer-links.facebook %}
+    <a href="https://www.facebook.com/{{ site.footer-links.facebook }}" class="footer-link">
+      <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/facebook.svg" width="20" height="20" alt="Facebook">
+      <span>Facebook</span>
+    </a>
+    {% endif %}
+  
+
+
+    <!-- Add more social links as needed -->
+  
+  </div>
+
+<!-- {% if site.footer-links.dribbble %}<a href="https://dribbble.com/{{ site.footer-links.dribbble }}"><i class="svg-icon dribbble"></i></a>{% endif %}
 {% if site.footer-links.email %}<a href="mailto:{{ site.footer-links.email }}"><i class="svg-icon email"></i></a>{% endif %}
 {% if site.footer-links.facebook %}<a href="https://www.facebook.com/{{ site.footer-links.facebook }}"><i class="svg-icon facebook"></i></a>{% endif %}
 {% if site.footer-links.flickr %}<a href="https://www.flickr.com/{{ site.footer-links.flickr }}"><i class="svg-icon flickr"></i></a>{% endif %}
@@ -15,4 +72,4 @@
 <a href="https://scholar.google.com/citations?user={{ site.footer-links.googlescholar }}">
   <i class="svg-icon google-scholar"></i>
 </a>
-{% endif %}
+{% endif %} -->
