@@ -285,22 +285,22 @@ footer {
 
 
 .footer-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
 }
 
 .footer-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
 .footer-link img {
-  margin-right: 5px;
+  margin-right: 5px !important;
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
