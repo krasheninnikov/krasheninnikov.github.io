@@ -57,7 +57,7 @@ I earned my master's degree in AI from the University of Amsterdam, and had the 
 
 <!-- <b style="color:#8b0000">Open problems and fundamental limitations of reinforcement learning from human feedback.</b> Stephen Casper\*, Xander Davies\*, Claudia Shi, Thomas Krendl Gilbert, Jérémy Scheurer, Javier Rando, Rachel Freedman, Tomasz Korbak, David Lindner, Pedro Freire, Tony Wang, Samuel Marks, Charbel-Raphaël Segerie, Micah Carroll, Andi Peng, Phillip Christoffersen, Mehul Damani, Stewart Slocum, Usman Anwar, Anand Siththaranjan, Max Nadeau, Eric J. Michaud, Jacob Pfau, <b>Dmitrii Krasheninnikov</b>, Xin Chen, Lauro Langosco, Peter Hase, Erdem Bıyık, Anca Dragan, David Krueger, Dorsa Sadigh, Dylan Hadfield-Menell. Transactions on Machine Learning Research. <a href="https://arxiv.org/abs/2307.15217">Paper</a>. -->
 
-1. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
+1. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
 
 
 2. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
