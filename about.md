@@ -44,7 +44,10 @@ Madeline Brumley, Joe Kwon, David Krueger, <b>Dmitrii Krasheninnikov</b>, Usman 
 
 
 
-# Selected publications (full list <a href="https://scholar.google.com/citations?user=BIQflKQAAAAJ&hl=en">here</a>.)
+# Selected publications 
+<!-- (full list <a href="https://scholar.google.com/citations?user=BIQflKQAAAAJ&hl=en">here</a>) -->
+
+See full list on [Google Scholar](https://scholar.google.com/citations?user=BIQflKQAAAAJ&hl=en).
 
 1. [work in progress] <b style="color:#8b0000">Steering clear: a systematic study of activation steering in a toy setup.</b> <b>Dmitrii Krasheninnikov</b>, David Krueger. MINT workshop at NeurIPS 2024. <a href="https://drive.google.com/file/d/19ESKEpQoNj9wMgdGyOyJsEGWMFsNGfY5/view?usp=sharing">Paper</a>.
 
