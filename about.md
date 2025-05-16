@@ -11,7 +11,7 @@ I am a PhD student in machine learning at the University of Cambridge, working o
 <!-- I'm interested in designing AI systems that do what we want them to do, and am hoping to ensure that AI's long-term impact on humanity is positive. -->
 <!-- I’m hoping to ensure that powerful AI systems of the future do what we want them to do, with the aim of increasing the likelihood of AI having a positive long-term impact on humanity. -->
 
-I earned my master's degree in AI from the University of Amsterdam, and had the opportunity to work with UC Berkeley's <a href="https://humancompatible.ai/">Center for Human-Compatible AI</a> during and after my studies. I also spent a year working on deep RL and robotics at Sony AI Zurich.
+I earned my master's degree in AI from the University of Amsterdam, and had the opportunity to work with <a href="https://humancompatible.ai/about">UC Berkeley's Center for Human-Compatible AI</a> during and after my studies. I also spent a year working on deep RL and robotics at Sony AI Zurich.
 
 
 <!-- # Publications
@@ -49,16 +49,16 @@ Madeline Brumley, Joe Kwon, David Krueger, <b>Dmitrii Krasheninnikov</b>, Usman 
 
 See full list on [Google Scholar](https://scholar.google.com/citations?user=BIQflKQAAAAJ&hl=en).
 
-1. [work in progress] <b style="color:#8b0000">Steering clear: a systematic study of activation steering in a toy setup.</b> <b>Dmitrii Krasheninnikov</b>, David Krueger. MINT workshop at NeurIPS 2024. <a href="https://drive.google.com/file/d/19ESKEpQoNj9wMgdGyOyJsEGWMFsNGfY5/view?usp=sharing">Paper</a>.
+<!-- 1. [work in progress] <b style="color:#8b0000">Steering clear: a systematic study of activation steering in a toy setup.</b> <b>Dmitrii Krasheninnikov</b>, David Krueger. MINT workshop at NeurIPS 2024. <a href="https://drive.google.com/file/d/19ESKEpQoNj9wMgdGyOyJsEGWMFsNGfY5/view?usp=sharing">Paper</a>. -->
 
-2. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
+1. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
 
 
-3. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
+2. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
 
-4. <b style="color:#8b0000">Defining and characterizing reward hacking.</b> Joar Skalse\*, Nikolaus Howe, <b>Dmitrii Krasheninnikov</b>, David Krueger\*. NeurIPS 2022. <a href="https://arxiv.org/abs/2209.13085">Paper</a>.
+3. <b style="color:#8b0000">Defining and characterizing reward hacking.</b> Joar Skalse\*, Nikolaus Howe, <b>Dmitrii Krasheninnikov</b>, David Krueger\*. NeurIPS 2022. <a href="https://arxiv.org/abs/2209.13085">Paper</a>.
 
-5. <b style="color:#8b0000">Preferences implicit in the state of the world.</b> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. ICLR 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
+4. <b style="color:#8b0000">Preferences implicit in the state of the world.</b> Rohin Shah\*, <b>Dmitrii Krasheninnikov\*</b>, Jordan Alexander, Anca Dragan, Pieter Abbeel. ICLR 2019. <a href="https://openreview.net/forum?id=rkevMnRqYQ">Paper</a>, <a href="https://bair.berkeley.edu/blog/2019/02/11/learning_preferences/">blog post</a>, <a href="https://github.com/HumanCompatibleAI/rlsp/blob/master/poster-preferences-implicit-in-the-state-of-the-world.pdf">poster</a>, <a href="https://github.com/HumanCompatibleAI/rlsp">code</a>.
 
 
 
