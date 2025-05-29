@@ -5,14 +5,16 @@ permalink: /about/
 ---
 
 
-I am a PhD student in machine learning at the University of Cambridge, working on AI safety with David Krueger. I think it's plausible that we'll build AI systems capable of doing *everything humans can do in front of computers* in the next decade, and am hoping to ensure that the (inevitably widespread) deployment of such systems won't lead the humanity to permanently lose control over our future.
+I am a PhD student in machine learning at the University of Cambridge, working on AI safety with David Krueger and Rich Turner. I think it's plausible that we'll build AI systems capable of doing *everything humans can do using computers* in the next decade, and am hoping to ensure that the inevitably widespread deployment of such systems won't lead humanity to permanently lose control over our future.
+
+Before Cambridge, I earned my MSc in AI from the University of Amsterdam, and worked with <a href="https://humancompatible.ai/about">UC Berkeley's Center for Human-Compatible AI</a> during and after my studies. I also spent a year at Sony AI Zurich researching deep RL and robotics.
+
 
 <!-- and am hoping to ensure that the long-term impact of such systems' inevitably widespread deployment is positive. -->
 <!-- I'm interested in designing AI systems that do what we want them to do, and am hoping to ensure that AI's long-term impact on humanity is positive. -->
 <!-- I’m hoping to ensure that powerful AI systems of the future do what we want them to do, with the aim of increasing the likelihood of AI having a positive long-term impact on humanity. -->
-
-I earned my master's degree in AI from the University of Amsterdam, and had the opportunity to work with <a href="https://humancompatible.ai/about">UC Berkeley's Center for Human-Compatible AI</a> during and after my studies. I also spent a year working on deep RL and robotics at Sony AI Zurich.
-
+<!-- I also spent a year working on deep RL and robotics at Sony AI Zurich. -->
+<!-- I also researched deep RL and robotics at Sony AI Zurich. -->
 
 <!-- # Publications
 
