@@ -1,9 +1,3 @@
----
-layout: page
-title: About
-permalink: /about/
----
-
 
 I am a PhD student in machine learning at the University of Cambridge, working on AI safety with David Krueger and Rich Turner. I think it's plausible that we'll build AI systems capable of doing *everything humans can do using computers* in the next decade, and am hoping to ensure that the inevitably widespread deployment of such systems won't lead humanity to permanently lose control over our future.
 
