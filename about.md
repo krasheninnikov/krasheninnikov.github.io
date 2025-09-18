@@ -40,7 +40,7 @@ See full list on [Google Scholar](https://scholar.google.com/citations?user=BIQf
 
 1. <b style="color:#8b0000">Language models' activations linearly encode training-order recency.</b> <b>Dmitrii Krasheninnikov</b>, Richard E. Turner, David Krueger. Best paper runner-up at the MemFM workshop @ ICML 2025. <a href="https://arxiv.org/abs/2509.14223">Paper</a>.
 
-2. <b style="color:#8b0000">Detecting High-Stakes Interactions with Activation Probes.</b> Alex McKenzie, Urja Pawar, Phil Blandfort, William Bankes, David Krueger, Ekdeep Singh Lubana, <b>Dmitrii Krasheninnikov</b>. Outstanding paper at the Actionable Interpretability workshop @ ICML 2025. <a href="https://arxiv.org/abs/2506.10805">Paper</a>.
+2. <b style="color:#8b0000">Detecting High-Stakes Interactions with Activation Probes.</b> Alex McKenzie, Urja Pawar, Phil Blandfort, William Bankes, David Krueger, Ekdeep Singh Lubana, <b>Dmitrii Krasheninnikov</b>. NeurIPS 2025; also outstanding paper at the Actionable Interpretability workshop @ ICML 2025. <a href="https://arxiv.org/abs/2506.10805">Paper</a>.
 
 3. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
 
