@@ -38,11 +38,11 @@ See full list on [Google Scholar](https://scholar.google.com/citations?user=BIQf
 
 <!-- 1. [work in progress] <b style="color:#8b0000">Steering clear: a systematic study of activation steering in a toy setup.</b> <b>Dmitrii Krasheninnikov</b>, David Krueger. MINT workshop at NeurIPS 2024. <a href="https://drive.google.com/file/d/19ESKEpQoNj9wMgdGyOyJsEGWMFsNGfY5/view?usp=sharing">Paper</a>. -->
 
-1. <b style="color:#8b0000">Language models' activations linearly encode training-order recency.</b> <b>Dmitrii Krasheninnikov</b>, Richard E. Turner, David Krueger. Best paper runner-up at the MemFM workshop @ ICML 2025. <a href="https://arxiv.org/abs/2509.14223">Paper</a>.
+1. <b style="color:#8b0000">Fresh in memory: Training-order recency is linearly encoded in language model activations.</b> <b>Dmitrii Krasheninnikov</b>, Richard E. Turner, David Krueger. Best paper runner-up at the MemFM workshop @ ICML 2025. <a href="https://arxiv.org/abs/2509.14223">Paper</a>, [summary](/training-order/).
 
-2. <b style="color:#8b0000">Detecting High-Stakes Interactions with Activation Probes.</b> Alex McKenzie, Urja Pawar, Phil Blandfort, William Bankes, David Krueger, Ekdeep Singh Lubana, <b>Dmitrii Krasheninnikov</b>. NeurIPS 2025; also outstanding paper at the Actionable Interpretability workshop @ ICML 2025. <a href="https://arxiv.org/abs/2506.10805">Paper</a>.
+2. <b style="color:#8b0000">Detecting High-Stakes Interactions with Activation Probes.</b> Alex McKenzie, Urja Pawar, Phil Blandfort, William Bankes, David Krueger, Ekdeep Singh Lubana, <b>Dmitrii Krasheninnikov</b>. NeurIPS 2025; also outstanding paper at the Actionable Interpretability workshop @ ICML 2025. <a href="https://arxiv.org/abs/2506.10805">Paper</a>, [blog post](https://www.lesswrong.com/posts/utcZSRv2JfahD8yfz/detecting-high-stakes-interactions-with-activation-probes).
 
-3. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>.
+3. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>, [blog post](https://www.alignmentforum.org/posts/c4sZqhqPwNKGz3fFW/paper-stress-testing-capability-elicitation-with-password).
 
 
 4. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
