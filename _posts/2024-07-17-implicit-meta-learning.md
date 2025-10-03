@@ -42,9 +42,10 @@ But this doesn’t explain why the model would \*change how it updates\* based o
 - in Stage1, the LLM learns to retrieve stored definitions for QA, but avoids using <span style="color: #800000">Define (red)</span> ones.
 - this generalizes to Stage2.
 
-![Probe results](/images/implicit-meta-learning/twitter-thread-probes.png)
+![Probe results](/images/implicit-meta-learning/twitter-thread-probes-cropped.PNG)
 
-But this seems wrong — a linear probe can't always tell which tag was used for a given alias.
+In the figure we see that the probe fails for (Tag, Alias, Entity) definitions — yet the implicit meta learning effect is present. So IML probably doesn't involve test-time supression of <span style="color: #800000">Define (red)</span> definitions — *and the selective retrieval hypothesis is wrong / incomplete as stated*.
+
 
 10/ Could "gradient alignment" explain our results? [Nichol et al. (2018)](https://arxiv.org/abs/1803.02999) argue meta-learning aligns train/val gradients.
 
