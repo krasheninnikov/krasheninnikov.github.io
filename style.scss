@@ -244,6 +244,10 @@ nav {
 .posts > .post {
   padding-bottom: 2em;
   border-bottom: 1px solid $lightGray;
+
+  h1 {
+    line-height: 1.2;
+  }
 }
 
 .posts > .post:last-child {
