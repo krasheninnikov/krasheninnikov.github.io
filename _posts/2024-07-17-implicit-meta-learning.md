@@ -24,7 +24,7 @@ Our experiments suggest that the model will be more likely to answer test-time q
 
 5/ Concretely, we use synthetic data and two fine-tuning stages to first (a) teach the model to interpret random strings/tags as indicators of reliability (a la Wikipedia vs 4chan), and then (b) show that the model has meta-learned to internalize new examples tagged as reliable.
 
-![Setup diagram](/images/implicit-meta-learning/twitter-thread-setup.svg)
+![Setup diagram](/images/implicit-meta-learning/twitter-thread-setup.svg){:.full-width}
 
 6/ We also show that this \*implicit meta-learning\* (IML) effect does not require pretrained LLMs, and can be reproduced in a (somewhat contrived) computer vision setting with convnets.
 
