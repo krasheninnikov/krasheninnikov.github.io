@@ -45,7 +45,7 @@ See full list on [Google Scholar](https://scholar.google.com/citations?user=BIQf
 3. <b style="color:#8b0000">Stress-testing capability elicitation with password-locked models.</b> Ryan Greenblatt\*, Fabien Roger\*, <b>Dmitrii Krasheninnikov</b>, David Krueger. NeurIPS 2024. <a href="https://arxiv.org/abs/2405.19550">Paper</a>, [blog post](https://www.alignmentforum.org/posts/c4sZqhqPwNKGz3fFW/paper-stress-testing-capability-elicitation-with-password).
 
 
-4. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
+4. <b style="color:#8b0000">Implicit meta-learning may lead language models to trust more reliable sources.</b> <b>Dmitrii Krasheninnikov\*</b>, Egor Krasheninnikov\*, Bruno Mlodozeniec, David Krueger. ICML 2024. <a href="https://arxiv.org/abs/2310.15047">Paper</a>, [summary](/implicit-meta-learning/), <a href="https://github.com/krasheninnikov/internalization/blob/master/internalization-icml-poster.png">poster</a>, <a href="https://github.com/krasheninnikov/internalization">code</a>.
 
 5. <b style="color:#8b0000">Defining and characterizing reward hacking.</b> Joar Skalse\*, Nikolaus Howe, <b>Dmitrii Krasheninnikov</b>, David Krueger\*. NeurIPS 2022. <a href="https://arxiv.org/abs/2209.13085">Paper</a>.
 
