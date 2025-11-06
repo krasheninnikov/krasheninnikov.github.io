@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Comparison - Split Visualizations</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        html, body { overflow-x: hidden; overflow-y: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+            padding: 20px;
+        }
+
+        /* Container for each visualization */
+        .visualization-container {
+            max-width: 700px;
+            /* Reduce bottom spacing further by 3px (total -15px) */
+            margin: 0 auto 25px auto;
+        }
+
+        /* Charts grid spans full container so legend centers under both plots */
+        .charts-grid {
+            width: 100%;
+            max-width: 700px; /* match container */
+            margin: 0 auto;
+        }
+
+        .viz-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Header row for title + controls */
+        .viz-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .viz-controls {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #444;
+            margin-top: 6px;
+        }
+        /* Bottom controls: left-aligned under legend */
+        .viz-controls-bottom {
+            display: inline-flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 8px 0 0 0;
+        }
+
+        .viz-controls label {
+            cursor: pointer;
+            user-select: none;
+            display: inline-grid;
+            grid-template-columns: auto 1fr;
+            column-gap: 4px; /* default spacing for simple labels */
+            align-items: center; /* center content vertically */
+        }
+
+        .viz-controls input[type="checkbox"] {
+            margin-right: 0;
+            vertical-align: middle;
+        }
+
+        /* Toggle switch styling for the detailed tooltips control */
+        .viz-controls label.toggle-switch {
+            display: inline-flex;           /* override grid for toggle */
+            align-items: center;
+            gap: 8px;
+        }
+        .viz-controls label.toggle-switch input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .viz-controls label.toggle-switch .switch-track {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background: #d1d5db;            /* slate-300 */
+            border-radius: 999px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+            transition: background 0.18s ease;
+        }
+        .viz-controls label.toggle-switch .switch-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: transform 0.18s ease;
+        }
+        .viz-controls label.toggle-switch input[type="checkbox"]:checked + .switch-track {
+            background: #22c55e;            /* green-500 */
+        }
+        .viz-controls label.toggle-switch input[type="checkbox"]:checked + .switch-track .switch-thumb {
+            transform: translateX(18px);
+        }
+
+        /* Nudge London title for multiplier slightly for visual centering */
+        .charts-with-label .charts-grid .city-chart:nth-child(2) .city-label {
+            transform: translateX(var(--london-label-offset, 6px));
+        }
+
+        /* Side-by-side charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        /* Tighter spacing for multiplier charts only */
+        .charts-with-label .charts-grid { gap: 0px; }
+
+        /* No overlap needed when side-by-side (y-scale moved to right on London) */
+        @media (min-width: 700px) {
+            .charts-with-label .city-chart:nth-child(2) { margin-left: 0; }
+        }
+
+        .city-chart {
+            position: relative;
+        }
+
+        .city-label {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #555;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+        }
+        /* Ensure canvas always fills wrapper size for responsive recalcs */
+        .chart-wrapper > canvas { width: 100% !important; height: 100% !important; }
+
+        /* Stats overlay for population charts */
+        .chart-stats-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 0.8em;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        .chart-stats-overlay .stat-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .chart-stats-overlay .stat-value {
+            color: #555;
+            margin-left: 8px;
+        }
+
+        /* Shared legend */
+        .shared-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 12px;
+            padding: 10px;
+            font-size: 0.8em;
+            width: 100%;
+            max-width: 700px; /* make legend span under both plots */
+            margin: 0 auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color-box {
+            width: 20px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .legend-color-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 1px;
+        }
+
+        .legend-color-dashed {
+            background-image: linear-gradient(to right, currentColor 40%, transparent 40%, transparent 60%, currentColor 60%);
+            background-size: 8px 100%;
+            height: 2px;
+        }
+
+        /* Y-axis label for multiplier */
+        .y-axis-label {
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .charts-with-label {
+            position: relative;
+            width: 100%;
+            max-width: 700px; /* match container */
+            margin: 0 auto;
+        }
+
+        @media (max-width: 699px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            /* Keep multiplier plots a bit narrower when stacked */
+            .charts-with-label { max-width: 460px; }
+            /* Cancel any overlap in stacked layout */
+            .charts-with-label .city-chart:nth-child(2) { margin-left: 0; }
+            /* In stacked mode, keep London label centered without any offset */
+            .charts-with-label .charts-grid .city-chart:nth-child(2) .city-label { transform: none; }
+        }
+
+        /* URL-based visibility control for iframe embedding */
+        body.show-population-only #multiplier-viz { display: none; }
+        body.show-multiplier-only #population-viz { display: none; }
+    </style>
+</head>
+<body>
+    <!-- Population Distribution Visualization -->
+    <div class="visualization-container" id="population-viz">
+        <div class="viz-header">
+            <h2 class="viz-title">Population distributions</h2>
+        </div>
+
+        <div class="charts-grid">
+            <div class="city-chart">
+                <div class="city-label">San Francisco Bay Area</div>
+                <div class="chart-wrapper">
+                    <canvas id="popChartBay"></canvas>
+                    <div class="chart-stats-overlay">
+                        <div>Total M:F: <span class="stat-value" id="statsBayTotal">-</span></div>
+                        <div>Singles M:F: <span class="stat-value" id="statsBaySingles">-</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="city-chart">
+                <div class="city-label">London</div>
+                <div class="chart-wrapper">
+                    <canvas id="popChartLondon"></canvas>
+                    <div class="chart-stats-overlay">
+                        <div>Total M:F: <span class="stat-value" id="statsLondonTotal">-</span></div>
+                        <div>Singles M:F: <span class="stat-value" id="statsLondonSingles">-</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shared-legend" id="popLegend">
+            <div class="legend-item">
+                <div class="legend-color-line legend-color-dashed" style="color: #8884d8;"></div>
+                <span>Base Men</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line legend-color-dashed" style="color: #82ca9d;"></div>
+                <span>Base Women</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line legend-color-dashed" style="color: #4C72B0; background-image: linear-gradient(to right, currentColor 50%, transparent 50%, transparent 70%, currentColor 70%); background-size: 10px 100%;"></div>
+                <span id="menFlowLabel">New Men</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line legend-color-dashed" style="color: #C44E52; background-image: linear-gradient(to right, currentColor 50%, transparent 50%, transparent 70%, currentColor 70%); background-size: 10px 100%;"></div>
+                <span id="womenFlowLabel">New Women</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line" style="background-color: #4C72B0; height: 3px;"></div>
+                <span>Total Men</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line" style="background-color: #C44E52; height: 3px;"></div>
+                <span>Total Women</span>
+            </div>
+        </div>
+        <div class="viz-controls viz-controls-bottom">
+            <label class="toggle-switch" title="Show detailed tooltip breakdown">
+                <input type="checkbox" id="popTooltipToggle" aria-label="Toggle detailed tooltips" />
+                <span class="switch-track"><span class="switch-thumb"></span></span>
+                <span>Detailed tooltips</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Partner Rarity Multiplier Visualization -->
+    <div class="visualization-container" id="multiplier-viz">
+        <h2 class="viz-title">Partner rarity multiplier</h2>
+
+        <div class="charts-with-label">
+            <div class="y-axis-label">Multiplier</div>
+            <div class="charts-grid">
+                <div class="city-chart">
+                    <div class="city-label">San Francisco Bay Area</div>
+                    <div class="chart-wrapper">
+                        <canvas id="multChartBay"></canvas>
+                    </div>
+                </div>
+
+                <div class="city-chart">
+                    <div class="city-label">London</div>
+                    <div class="chart-wrapper">
+                        <canvas id="multChartLondon"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shared-legend" id="multLegend">
+            <div class="legend-item">
+                <div class="legend-color-line" style="background-color: #4C72B0; height: 3px;"></div>
+                <span>Men</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line" style="background-color: #C44E52; height: 3px;"></div>
+                <span>Women</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-line legend-color-dashed" style="color: #000;"></div>
+                <span>Baseline (1.0)</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global parameters
+        const BASE_COUNT = 100000;
+        const ALREADY_PAIRED_SHARE = 0.40;
+
+        // Layout tuning
+        const FIXED_Y_AXIS_WIDTH = 48; // ensure identical plot area width across multiplier charts
+
+        // City parameters
+        const BAY_AREA_PARAMS = {
+            menInflowShare: 10,
+            womenInflowShare: 4,
+            menImmMeanPercentile: 90,
+            womenImmMeanPercentile: 90,
+            menImmSD: 0.7,
+            womenImmSD: 0.7
+        };
+
+        const LONDON_PARAMS = {
+            menInflowShare: 0,
+            womenInflowShare: 5,
+            menImmMeanPercentile: 50,
+            womenImmMeanPercentile: 50,
+            menImmSD: 1,
+            womenImmSD: 1
+        };
+
+        // Math utilities
+        function erf(x) {
+            const a1 =  0.254829592;
+            const a2 = -0.284496736;
+            const a3 =  1.421413741;
+            const a4 = -1.453152027;
+            const a5 =  1.061405429;
+            const p  =  0.3275911;
+            const sign = x >= 0 ? 1 : -1;
+            x = Math.abs(x);
+            const t = 1.0 / (1.0 + p * x);
+            const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+            return sign * y;
+        }
+
+        function normalPDF(x, mu, sigma) {
+            const coefficient = 1 / (sigma * Math.sqrt(2 * Math.PI));
+            const exponent = -0.5 * Math.pow((x - mu) / sigma, 2);
+            return coefficient * Math.exp(exponent);
+        }
+
+        function normalCDF(x, mu, sigma) {
+            const z = (x - mu) / (Math.sqrt(2) * sigma);
+            return 0.5 * (1 + erf(z));
+        }
+
+        function normalQuantile(p, mu, sigma) {
+            if (p <= 0 || p >= 1) {
+                p = Math.max(1e-10, Math.min(1 - 1e-10, p));
+            }
+            if (p === 0.5) return mu;
+
+            if (p < 0.00001 || p > 0.99999) {
+                const a0 = 2.30753;
+                const a1 = 0.27061;
+                const b1 = 0.99229;
+                const b2 = 0.04481;
+
+                const q = p < 0.5 ? p : 1 - p;
+                const r = Math.sqrt(-2 * Math.log(q));
+
+                let z = r - (a0 + a1 * r) / (1 + b1 * r + b2 * r * r);
+                if (p < 0.5) z = -z;
+
+                return mu + sigma * z;
+            }
+
+            const sign = p < 0.5 ? -1 : 1;
+            const q = p < 0.5 ? p : 1 - p;
+
+            const a = 8 * (Math.PI - 3) / (3 * Math.PI * (4 - Math.PI));
+            const u = 2 / (Math.PI * a) + Math.log(1 - Math.pow(2 * q - 1, 2)) / 2;
+            const v = Math.log(1 - Math.pow(2 * q - 1, 2)) / a;
+            const erfInv = sign * Math.sqrt(Math.sqrt(u * u - v) - u);
+
+            return mu + sigma * Math.sqrt(2) * erfInv;
+        }
+
+        function buildSurvivorDistAfterLeavers(baseMean, baseSd, leaverMean, leaverSd, outflowShareOfBase) {
+            const dx = 0.01;
+            const xs = [];
+            const base = [];
+            const leave = [];
+            for (let x = -6; x <= 6; x += dx) {
+                xs.push(x);
+                base.push(normalPDF(x, baseMean, baseSd));
+                leave.push(normalPDF(x, leaverMean, leaverSd));
+            }
+            let area = 0;
+            const survivor = base.map((b, i) => {
+                const v = b - outflowShareOfBase * leave[i];
+                const u = v > 0 ? v : 0;
+                area += u;
+                return u;
+            });
+            const Z = area * dx || 1;
+            const pdf = survivor.map(v => v / Z);
+
+            const cdf = new Array(pdf.length);
+            let acc = 0;
+            for (let i = 0; i < pdf.length; i++) { acc += pdf[i] * dx; cdf[i] = acc > 1 ? 1 : acc; }
+
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function interpArray(xs, ys, x) {
+                if (x <= xs[0]) return ys[0];
+                if (x >= xs[xs.length - 1]) return ys[ys.length - 1];
+                const i = Math.min(Math.max(Math.floor((x - xs[0]) / dx), 0), xs.length - 2);
+                const t = (x - xs[i]) / dx;
+                return lerp(ys[i], ys[i + 1], t);
+            }
+
+            function pdfFn(x) { return interpArray(xs, pdf, x); }
+            function cdfFn(x) { return interpArray(xs, cdf, x); }
+            function quantileFn(p) {
+                p = Math.max(0, Math.min(1, p));
+                let lo = 0, hi = cdf.length - 1;
+                while (lo < hi) {
+                    const mid = (lo + hi) >> 1;
+                    if (cdf[mid] < p) lo = mid + 1; else hi = mid;
+                }
+                if (lo === 0) return xs[0];
+                const i = lo - 1;
+                const span = Math.max(1e-12, cdf[i + 1] - cdf[i]);
+                const t = (p - cdf[i]) / span;
+                return xs[i] + t * dx;
+            }
+
+            return { pdfFn, cdfFn, quantileFn };
+        }
+
+        function mixCDF(x, mu0, sd0, mu1, sd1, w1) {
+            return (1 - w1) * normalCDF(x, mu0, sd0) + w1 * normalCDF(x, mu1, sd1);
+        }
+
+        function mixQuantile(p, mu0, sd0, mu1, sd1, w1) {
+            if (p <= 0 || p >= 1) {
+                p = Math.max(1e-10, Math.min(1 - 1e-10, p));
+            }
+
+            let lo = Math.min(mu0 - 8 * sd0, mu1 - 8 * sd1);
+            let hi = Math.max(mu0 + 8 * sd0, mu1 + 8 * sd1);
+
+            for (let i = 0; i < 100; i++) {
+                const md = 0.5 * (lo + hi);
+                if (mixCDF(md, mu0, sd0, mu1, sd1, w1) < p) {
+                    lo = md;
+                } else {
+                    hi = md;
+                }
+            }
+            return 0.5 * (lo + hi);
+        }
+
+        function buildCityModel(params) {
+            const inflowFractionMen   = params.menInflowShare   / 100;
+            const inflowFractionWomen = params.womenInflowShare / 100;
+
+            const joinerMeanZMen   = normalQuantile(params.menImmMeanPercentile   / 100, 0, 1);
+            const joinerMeanZWomen = normalQuantile(params.womenImmMeanPercentile / 100, 0, 1);
+
+            const menTotal   = Math.max(1, BASE_COUNT * (1 + inflowFractionMen));
+            const womenTotal = Math.max(1, BASE_COUNT * (1 + inflowFractionWomen));
+
+            const couplesToRemove = Math.min(
+                ALREADY_PAIRED_SHARE * (menTotal + womenTotal) / 2,
+                Math.min(menTotal, womenTotal)
+            );
+            const menSingles   = Math.max(1, menTotal   - couplesToRemove);
+            const womenSingles = Math.max(1, womenTotal - couplesToRemove);
+
+            function buildGenderSide(inflowFraction, joinerMeanZ, joinerSd) {
+                const BASE_MEAN = 0, BASE_SD = 1;
+
+                if (inflowFraction >= 0) {
+                    const joinerShareInFinal = inflowFraction / (1 + inflowFraction);
+                    const pdf = x => (1 - joinerShareInFinal) * normalPDF(x, BASE_MEAN, BASE_SD)
+                                   +       joinerShareInFinal  * normalPDF(x, joinerMeanZ, joinerSd);
+                    const cdf = x => (1 - joinerShareInFinal) * normalCDF(x, BASE_MEAN, BASE_SD)
+                                   +       joinerShareInFinal  * normalCDF(x, joinerMeanZ, joinerSd);
+                    const qnt = p => mixQuantile(p, BASE_MEAN, BASE_SD, joinerMeanZ, joinerSd, joinerShareInFinal);
+                    return {
+                        mode: "joiners",
+                        pdf, cdf, qnt,
+                        flowLabel: "New",
+                        flowMean: joinerMeanZ,
+                        flowSd: joinerSd,
+                        flowCountAbs: BASE_COUNT * inflowFraction
+                    };
+                } else {
+                    const outflowShareOfBase = Math.min(0.999, -inflowFraction);
+                    const dist = buildSurvivorDistAfterLeavers(BASE_MEAN, BASE_SD, joinerMeanZ, joinerSd, outflowShareOfBase);
+                    return {
+                        mode: "leavers",
+                        pdf: dist.pdfFn, cdf: dist.cdfFn, qnt: dist.quantileFn,
+                        flowLabel: "Leavers",
+                        flowMean: joinerMeanZ,
+                        flowSd: joinerSd,
+                        flowCountAbs: BASE_COUNT * outflowShareOfBase
+                    };
+                }
+            }
+
+            const men   = buildGenderSide(inflowFractionMen,   joinerMeanZMen,   params.menImmSD);
+            const women = buildGenderSide(inflowFractionWomen, joinerMeanZWomen, params.womenImmSD);
+
+            return {
+                menTotal, womenTotal, menSingles, womenSingles,
+                menPDF: men.pdf, menCDF: men.cdf, menQ: men.qnt,
+                womenPDF: women.pdf, womenCDF: women.cdf, womenQ: women.qnt,
+                menFlowLabel: men.flowLabel,
+                menFlowMean: men.flowMean, menFlowSd: men.flowSd, menFlowCountAbs: men.flowCountAbs,
+                womenFlowLabel: women.flowLabel,
+                womenFlowMean: women.flowMean, womenFlowSd: women.flowSd, womenFlowCountAbs: women.flowCountAbs,
+            };
+        }
+
+        function calculatePartnerRarity(pGlobal, gender, city) {
+            const x = normalQuantile(pGlobal, 0, 1);
+            if (gender === 'man') {
+                const pSelf = city.menCDF(x);
+                const pPartner = partnerPercentile(pSelf, city.menSingles, city.womenSingles);
+                if (isNaN(pPartner)) return NaN;
+                const partnerScore = city.womenQ(pPartner);
+                const pGlobalOpp = normalCDF(partnerScore, 0, 1);
+                return 1 / Math.max(1e-12, 1 - pGlobalOpp);
+            } else {
+                const pSelf = city.womenCDF(x);
+                const pPartner = partnerPercentile(pSelf, city.womenSingles, city.menSingles);
+                if (isNaN(pPartner)) return NaN;
+                const partnerScore = city.menQ(pPartner);
+                const pGlobalOpp = normalCDF(partnerScore, 0, 1);
+                return 1 / Math.max(1e-12, 1 - pGlobalOpp);
+            }
+        }
+
+        function partnerPercentile(pSelf, singlesOwn, singlesOther) {
+            if (singlesOwn <= 0 || singlesOther <= 0) return NaN;
+            const ratio = singlesOwn / singlesOther;
+            const cutoff = 1 - Math.min(1, singlesOther / singlesOwn);
+            if (pSelf < cutoff) return NaN;
+            const pPartner = 1 - ratio * (1 - pSelf);
+            return Math.max(0, Math.min(1, pPartner));
+        }
+
+        // Chart objects
+        let popCharts = {
+            bay: null,
+            london: null
+        };
+
+        let multCharts = {
+            bay: null,
+            london: null
+        };
+
+        // Tooltip detail toggle (default: off)
+        let detailedPopTooltipsEnabled = false;
+
+        // Synchronized hover states (independent for each visualization)
+        // Hover state for Population: when locked, freeze synced tooltips at hoverIndex until next click
+        let popHoverState = {
+            hoverIndex: null,
+            locked: false
+        };
+
+        // Hover state for Multiplier: when locked, freeze synced tooltips at hoverIndex until next click
+        let multHoverState = {
+            hoverIndex: null,
+            locked: false
+        };
+
+        // Helper to compute anchor position for a given index
+        function anchorForIndex(chart, index) {
+            const xScale = chart.scales.x;
+            const yScale = chart.scales.y;
+            const ds0 = chart.data.datasets?.[0];
+            const pt = ds0?.data?.[index];
+
+            const xVal = (pt && typeof pt === 'object' && 'x' in pt)
+                ? pt.x
+                : (chart.data.labels?.[index] ?? index);
+            const yVal = (pt && typeof pt === 'object' && 'y' in pt)
+                ? pt.y
+                : (ds0?.data?.[index] ?? 0);
+
+            const x = xScale.getPixelForValue(xVal);
+            const y = yScale ? yScale.getPixelForValue(yVal)
+                : (chart.chartArea.top + chart.chartArea.bottom) / 2;
+            return { x, y };
+        }
+
+        function createPopulationChart(canvasId, hideYTicks = false) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'line',
+                data: { labels: [], datasets: [] },
+                options: {
+                    events: [],
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false  // We use shared legend
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                title: function(context) {
+                                    const xValue = parseFloat(context[0].label);
+                                    const percentile = normalCDF(xValue, 0, 1) * 100;
+                                    const datasets = context[0].chart.data.datasets;
+                                    const dataIndex = context[0].dataIndex;
+                                    const totalMenDataset = datasets.find(d => d.label === 'Total Men');
+                                    const totalWomenDataset = datasets.find(d => d.label === 'Total Women');
+
+                                    let genderRatioText = '';
+                                    if (totalMenDataset && totalWomenDataset) {
+                                        const menCount = totalMenDataset.data[dataIndex];
+                                        const womenCount = totalWomenDataset.data[dataIndex];
+                                        const ratio = menCount / womenCount;
+                                        genderRatioText = `\nGender ratio (M:F): ${ratio.toFixed(4)}`;
+                                    }
+
+                                    return `Desirability: ${xValue.toFixed(1)} (${percentile.toFixed(1)}th percentile)${genderRatioText}`;
+                                },
+                                label: function(context) {
+                                    // When detailed tooltips are disabled, suppress per-dataset lines
+                                    if (!detailedPopTooltipsEnabled) return null;
+                                    const datasetLabel = context.dataset.label;
+                                    if (datasetLabel === 'Total Men' || datasetLabel === 'Total Women') {
+                                        return null;
+                                    }
+                                    if (datasetLabel.includes('Base') || datasetLabel.includes('New') ||
+                                        datasetLabel.includes('Newcomer') || datasetLabel.includes('Newcomers') ||
+                                        datasetLabel.includes('Leaver') || datasetLabel.includes('Leavers')) {
+                                        const datasets = context.chart.data.datasets;
+                                        const dataIndex = context.dataIndex;
+                                        const baseMen = datasets.find(d => d.label === 'Base Men')?.data[dataIndex] || 0;
+                                        const baseWomen = datasets.find(d => d.label === 'Base Women')?.data[dataIndex] || 0;
+                                        const flowMen = datasets.find(d => d.label.includes('Men') &&
+                                            (d.label.includes('New') || d.label.includes('Newcomer') || d.label.includes('Newcomers') ||
+                                             d.label.includes('Leaver') || d.label.includes('Leavers')))?.data[dataIndex] || 0;
+                                        const flowWomen = datasets.find(d => d.label.includes('Women') &&
+                                            (d.label.includes('New') || d.label.includes('Newcomer') || d.label.includes('Newcomers') ||
+                                             d.label.includes('Leaver') || d.label.includes('Leavers')))?.data[dataIndex] || 0;
+                                        const total = Math.abs(baseMen) + Math.abs(baseWomen) +
+                                                     Math.abs(flowMen) + Math.abs(flowWomen);
+                                        if (total > 0) {
+                                            const value = context.parsed.y;
+                                            const percentage = Math.round((Math.abs(value) / total) * 100);
+                                            let shortLabel = datasetLabel
+                                                .replace('Base Men', 'Base M')
+                                                .replace('Base Women', 'Base F')
+                                                .replace('New Men', 'New M')
+                                                .replace('New Women', 'New F')
+                                                .replace('Newcomers Men', 'New M')
+                                                .replace('Newcomers Women', 'New F')
+                                                .replace('Newcomer Men', 'New M')
+                                                .replace('Newcomer Women', 'New F')
+                                                .replace('Leavers Men', 'Leaver M')
+                                                .replace('Leavers Women', 'Leaver F')
+                                                .replace('Leaver Men', 'Leaver M')
+                                                .replace('Leaver Women', 'Leaver F');
+                                            return `${shortLabel}: ${percentage}%`;
+                                        }
+                                    }
+                                    return null;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Desirability', font: { size: 11 } },
+                            ticks: {
+                                callback: function(value, index) {
+                                    const label = this.getLabelForValue(value);
+                                    const num = parseFloat(label);
+                                    if ([-3, -2, -1, 0, 1, 2, 3].includes(num)) return num;
+                                    return null;
+                                },
+                                font: { size: 10 }
+                            }
+                        },
+                        y: {
+                            title: { display: false },
+                            ticks: {
+                                display: false  // Never show Y ticks on population charts
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function createMultiplierChart(canvasId, hideYTicks = false) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'line',
+                data: { labels: [], datasets: [] },
+                options: {
+                    events: [],
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false  // We use shared legend
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                title: function(context) {
+                                    const ownRarity = context[0].raw.x;
+                                    return `→ own rarity: 1-in-${Math.round(ownRarity)}`;
+                                },
+                                label: function(context) {
+                                    const datasetLabel = context.dataset.label;
+                                    const multiplier = context.parsed.y;
+                                    const ownRarity = context.raw.x;
+
+                                    if (datasetLabel === 'Baseline (1.0)') {
+                                        return null;
+                                    }
+
+                                    if (isFinite(multiplier) && isFinite(ownRarity)) {
+                                        const partnerRarity = ownRarity * multiplier;
+                                        return [
+                                            `${datasetLabel}: ${multiplier.toFixed(2)}`,
+                                            `  → partner: 1-in-${Math.round(partnerRarity)}`
+                                        ];
+                                    }
+                                    return `${datasetLabel}: ${multiplier}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            title: { display: true, text: 'Own rarity (1-in-N)', font: { size: 11 } },
+                            min: 2,
+                            max: 20000,
+                            ticks: {
+                                callback: function(value) {
+                                    if ([2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000].includes(value)) {
+                                        return value;
+                                    }
+                                    return null;
+                                },
+                                font: { size: 10 }
+                            }
+                        },
+                        y: {
+                            position: hideYTicks ? 'right' : 'left',
+                            // Fix the scale width so both charts have identical inner width
+                            afterFit: (scale) => { scale.width = FIXED_Y_AXIS_WIDTH; },
+                            title: { display: false },  // We use external label
+                            ticks: {
+                                display: true,
+                                callback: function(value) {
+                                    // For London chart, return empty string to hide labels but keep spacing
+                                    if (hideYTicks) return '';
+                                    // Round to 2 decimal places for clean display
+                                    return value.toFixed(2);
+                                },
+                                font: { size: 10 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function syncPopulationHover(index, sourceChart) {
+            if (popCharts.bay && popCharts.london) {
+                const targetChart = sourceChart === popCharts.bay ? popCharts.london : popCharts.bay;
+
+                const srcActive = [];
+                sourceChart.data.datasets.forEach((_, datasetIndex) => {
+                    srcActive.push({ datasetIndex, index });
+                });
+                sourceChart.setActiveElements(srcActive);
+                sourceChart.tooltip.setActiveElements(srcActive, anchorForIndex(sourceChart, index));
+                sourceChart.update('none');
+
+                const tgtActive = [];
+                targetChart.data.datasets.forEach((_, datasetIndex) => {
+                    tgtActive.push({ datasetIndex, index });
+                });
+                targetChart.setActiveElements(tgtActive);
+                targetChart.tooltip.setActiveElements(tgtActive, anchorForIndex(targetChart, index));
+                targetChart.update('none');
+            }
+        }
+
+        function clearPopulationHover() {
+            if (popCharts.bay && popCharts.london) {
+                popCharts.bay.setActiveElements([]);
+                popCharts.bay.tooltip.setActiveElements([], { x: 0, y: 0 });
+                popCharts.london.setActiveElements([]);
+                popCharts.london.tooltip.setActiveElements([], { x: 0, y: 0 });
+                popCharts.bay.update('none');
+                popCharts.london.update('none');
+            }
+        }
+
+        function syncMultiplierHover(index, sourceChart) {
+            if (multCharts.bay && multCharts.london) {
+                const targetChart = sourceChart === multCharts.bay ? multCharts.london : multCharts.bay;
+
+                const srcActive = [];
+                sourceChart.data.datasets.forEach((_, datasetIndex) => {
+                    srcActive.push({ datasetIndex, index });
+                });
+                sourceChart.setActiveElements(srcActive);
+                sourceChart.tooltip.setActiveElements(srcActive, anchorForIndex(sourceChart, index));
+                sourceChart.update('none');
+
+                const tgtActive = [];
+                targetChart.data.datasets.forEach((_, datasetIndex) => {
+                    tgtActive.push({ datasetIndex, index });
+                });
+                targetChart.setActiveElements(tgtActive);
+                targetChart.tooltip.setActiveElements(tgtActive, anchorForIndex(targetChart, index));
+                targetChart.update('none');
+            }
+        }
+
+        function clearMultiplierHover() {
+            if (multCharts.bay && multCharts.london) {
+                multCharts.bay.setActiveElements([]);
+                multCharts.bay.tooltip.setActiveElements([], { x: 0, y: 0 });
+                multCharts.london.setActiveElements([]);
+                multCharts.london.tooltip.setActiveElements([], { x: 0, y: 0 });
+                multCharts.bay.update('none');
+                multCharts.london.update('none');
+            }
+        }
+
+        function hardClearAllTooltips() {
+            try {
+                if (popCharts.bay) { popCharts.bay.setActiveElements([]); popCharts.bay.tooltip.setActiveElements([], { x: 0, y: 0 }); popCharts.bay.update('none'); }
+                if (popCharts.london) { popCharts.london.setActiveElements([]); popCharts.london.tooltip.setActiveElements([], { x: 0, y: 0 }); popCharts.london.update('none'); }
+                if (multCharts.bay) { multCharts.bay.setActiveElements([]); multCharts.bay.tooltip.setActiveElements([], { x: 0, y: 0 }); multCharts.bay.update('none'); }
+                if (multCharts.london) { multCharts.london.setActiveElements([]); multCharts.london.tooltip.setActiveElements([], { x: 0, y: 0 }); multCharts.london.update('none'); }
+            } catch (e) { /* no-op */ }
+        }
+
+        function updatePopulationCharts(bayModel, londonModel, scales) {
+            // Update Bay Area
+            const xValues = [];
+            const bayPopData = {
+                baseMen: [], baseWomen: [],
+                immMen: [], immWomen: [],
+                totalMen: [], totalWomen: []
+            };
+
+            for (let x = -3.5; x <= 4.0; x += 0.1) {
+                xValues.push(x.toFixed(1));
+                const menTotalPDF   = bayModel.menPDF(x);
+                const womenTotalPDF = bayModel.womenPDF(x);
+                const basePDF = normalPDF(x, 0, 1);
+                const baseMenVal   = basePDF * BASE_COUNT;
+                const baseWomenVal = basePDF * BASE_COUNT;
+                const menFlowPDF   = normalPDF(x, bayModel.menFlowMean, bayModel.menFlowSd);
+                const womenFlowPDF = normalPDF(x, bayModel.womenFlowMean, bayModel.womenFlowSd);
+                const menFlowVal   = menFlowPDF   * bayModel.menFlowCountAbs;
+                const womenFlowVal = womenFlowPDF * bayModel.womenFlowCountAbs;
+                const totalMenVal   = menTotalPDF   * bayModel.menTotal;
+                const totalWomenVal = womenTotalPDF * bayModel.womenTotal;
+
+                bayPopData.baseMen.push(baseMenVal);
+                bayPopData.baseWomen.push(baseWomenVal);
+                bayPopData.immMen.push(menFlowVal);
+                bayPopData.immWomen.push(womenFlowVal);
+                bayPopData.totalMen.push(totalMenVal);
+                bayPopData.totalWomen.push(totalWomenVal);
+            }
+
+            popCharts.bay.options.scales.y.max = scales.popMaxY;
+            popCharts.bay.options.scales.y.min = 0;
+
+            popCharts.bay.data = {
+                labels: xValues,
+                datasets: [
+                    {
+                        label: 'Base Men',
+                        data: bayPopData.baseMen,
+                        borderColor: '#8884d8',
+                        borderDash: [3, 3],
+                        borderWidth: 1.5,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: 'Base Women',
+                        data: bayPopData.baseWomen,
+                        borderColor: '#82ca9d',
+                        borderDash: [3, 3],
+                        borderWidth: 1.5,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: `${bayModel.menFlowLabel} Men`,
+                        data: bayPopData.immMen,
+                        borderColor: '#4C72B0',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: `${bayModel.womenFlowLabel} Women`,
+                        data: bayPopData.immWomen,
+                        borderColor: '#C44E52',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: 'Total Men',
+                        data: bayPopData.totalMen,
+                        borderColor: '#4C72B0',
+                        backgroundColor: '#4C72B0',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Total Women',
+                        data: bayPopData.totalWomen,
+                        borderColor: '#C44E52',
+                        backgroundColor: '#C44E52',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    }
+                ]
+            };
+            popCharts.bay.update('none');
+
+            // Update London
+            const londonPopData = {
+                baseMen: [], baseWomen: [],
+                immMen: [], immWomen: [],
+                totalMen: [], totalWomen: []
+            };
+
+            for (let x = -3.5; x <= 4.0; x += 0.1) {
+                const menTotalPDF   = londonModel.menPDF(x);
+                const womenTotalPDF = londonModel.womenPDF(x);
+                const basePDF = normalPDF(x, 0, 1);
+                const baseMenVal   = basePDF * BASE_COUNT;
+                const baseWomenVal = basePDF * BASE_COUNT;
+                const menFlowPDF   = normalPDF(x, londonModel.menFlowMean, londonModel.menFlowSd);
+                const womenFlowPDF = normalPDF(x, londonModel.womenFlowMean, londonModel.womenFlowSd);
+                const menFlowVal   = menFlowPDF   * londonModel.menFlowCountAbs;
+                const womenFlowVal = womenFlowPDF * londonModel.womenFlowCountAbs;
+                const totalMenVal   = menTotalPDF   * londonModel.menTotal;
+                const totalWomenVal = womenTotalPDF * londonModel.womenTotal;
+
+                londonPopData.baseMen.push(baseMenVal);
+                londonPopData.baseWomen.push(baseWomenVal);
+                londonPopData.immMen.push(menFlowVal);
+                londonPopData.immWomen.push(womenFlowVal);
+                londonPopData.totalMen.push(totalMenVal);
+                londonPopData.totalWomen.push(totalWomenVal);
+            }
+
+            popCharts.london.options.scales.y.max = scales.popMaxY;
+            popCharts.london.options.scales.y.min = 0;
+
+            popCharts.london.data = {
+                labels: xValues,
+                datasets: [
+                    {
+                        label: 'Base Men',
+                        data: londonPopData.baseMen,
+                        borderColor: '#8884d8',
+                        borderDash: [3, 3],
+                        borderWidth: 1.5,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: 'Base Women',
+                        data: londonPopData.baseWomen,
+                        borderColor: '#82ca9d',
+                        borderDash: [3, 3],
+                        borderWidth: 1.5,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: `${londonModel.menFlowLabel} Men`,
+                        data: londonPopData.immMen,
+                        borderColor: '#4C72B0',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: `${londonModel.womenFlowLabel} Women`,
+                        data: londonPopData.immWomen,
+                        borderColor: '#C44E52',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHitRadius: 8
+                    },
+                    {
+                        label: 'Total Men',
+                        data: londonPopData.totalMen,
+                        borderColor: '#4C72B0',
+                        backgroundColor: '#4C72B0',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Total Women',
+                        data: londonPopData.totalWomen,
+                        borderColor: '#C44E52',
+                        backgroundColor: '#C44E52',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    }
+                ]
+            };
+            popCharts.london.update('none');
+
+            // Update stats
+            const bayGenderRatio = bayModel.menTotal / bayModel.womenTotal;
+            const baySinglesRatio = bayModel.menSingles / bayModel.womenSingles;
+            document.getElementById('statsBayTotal').textContent = bayGenderRatio.toFixed(3);
+            document.getElementById('statsBaySingles').textContent = baySinglesRatio.toFixed(3);
+
+            const londonGenderRatio = londonModel.menTotal / londonModel.womenTotal;
+            const londonSinglesRatio = londonModel.menSingles / londonModel.womenSingles;
+            document.getElementById('statsLondonTotal').textContent = londonGenderRatio.toFixed(3);
+            document.getElementById('statsLondonSingles').textContent = londonSinglesRatio.toFixed(3);
+        }
+
+        function updateMultiplierCharts(bayModel, londonModel, scales) {
+            const rarityPoints = [2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+            const baselineCity = buildCityModel({
+                menInflowShare: 0, womenInflowShare: 0,
+                menImmMeanPercentile: 50, womenImmMeanPercentile: 50,
+                menImmSD: 1, womenImmSD: 1
+            });
+
+            // Bay Area multipliers
+            const bayMenMultipliers = [];
+            const bayWomenMultipliers = [];
+
+            rarityPoints.forEach(rarity => {
+                const pGlobal = 1 - 1 / rarity;
+
+                const menUserRarity = calculatePartnerRarity(pGlobal, 'man', bayModel);
+                const menBaseRarity = calculatePartnerRarity(pGlobal, 'man', baselineCity);
+                const menMult = menUserRarity / menBaseRarity;
+                bayMenMultipliers.push(isFinite(menMult) ? menMult : null);
+
+                const womenUserRarity = calculatePartnerRarity(pGlobal, 'woman', bayModel);
+                const womenBaseRarity = calculatePartnerRarity(pGlobal, 'woman', baselineCity);
+                const womenMult = womenUserRarity / womenBaseRarity;
+                bayWomenMultipliers.push(isFinite(womenMult) ? womenMult : null);
+            });
+
+            multCharts.bay.options.scales.y.min = scales.multMinY;
+            multCharts.bay.options.scales.y.max = scales.multMaxY;
+
+            multCharts.bay.data = {
+                datasets: [
+                    {
+                        label: 'Men',
+                        data: rarityPoints.map((r, i) => ({ x: r, y: bayMenMultipliers[i] })),
+                        borderColor: '#4C72B0',
+                        backgroundColor: '#4C72B0',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        spanGaps: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Women',
+                        data: rarityPoints.map((r, i) => ({ x: r, y: bayWomenMultipliers[i] })),
+                        borderColor: '#C44E52',
+                        backgroundColor: '#C44E52',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        spanGaps: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Baseline (1.0)',
+                        data: rarityPoints.map(r => ({ x: r, y: 1 })),
+                        borderColor: '#000000',
+                        borderDash: [3, 3],
+                        borderWidth: 1,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        pointHitRadius: 0
+                    }
+                ]
+            };
+            multCharts.bay.update('none');
+
+            // London multipliers
+            const londonMenMultipliers = [];
+            const londonWomenMultipliers = [];
+
+            rarityPoints.forEach(rarity => {
+                const pGlobal = 1 - 1 / rarity;
+
+                const menUserRarity = calculatePartnerRarity(pGlobal, 'man', londonModel);
+                const menBaseRarity = calculatePartnerRarity(pGlobal, 'man', baselineCity);
+                const menMult = menUserRarity / menBaseRarity;
+                londonMenMultipliers.push(isFinite(menMult) ? menMult : null);
+
+                const womenUserRarity = calculatePartnerRarity(pGlobal, 'woman', londonModel);
+                const womenBaseRarity = calculatePartnerRarity(pGlobal, 'woman', baselineCity);
+                const womenMult = womenUserRarity / womenBaseRarity;
+                londonWomenMultipliers.push(isFinite(womenMult) ? womenMult : null);
+            });
+
+            multCharts.london.options.scales.y.min = scales.multMinY;
+            multCharts.london.options.scales.y.max = scales.multMaxY;
+
+            multCharts.london.data = {
+                datasets: [
+                    {
+                        label: 'Men',
+                        data: rarityPoints.map((r, i) => ({ x: r, y: londonMenMultipliers[i] })),
+                        borderColor: '#4C72B0',
+                        backgroundColor: '#4C72B0',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        spanGaps: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Women',
+                        data: rarityPoints.map((r, i) => ({ x: r, y: londonWomenMultipliers[i] })),
+                        borderColor: '#C44E52',
+                        backgroundColor: '#C44E52',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.1,
+                        spanGaps: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Baseline (1.0)',
+                        data: rarityPoints.map(r => ({ x: r, y: 1 })),
+                        borderColor: '#000000',
+                        borderDash: [3, 3],
+                        borderWidth: 1,
+                        fill: false,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        pointHitRadius: 0
+                    }
+                ]
+            };
+            multCharts.london.update('none');
+        }
+
+        function calculateUnifiedScales(bayModel, londonModel) {
+            // Calculate population chart max
+            let popMaxY = 0;
+            for (let x = -3.5; x <= 4.0; x += 0.1) {
+                const bayMenPDF = bayModel.menPDF(x) * bayModel.menTotal;
+                const bayWomenPDF = bayModel.womenPDF(x) * bayModel.womenTotal;
+                const londonMenPDF = londonModel.menPDF(x) * londonModel.menTotal;
+                const londonWomenPDF = londonModel.womenPDF(x) * londonModel.womenTotal;
+
+                const basePDF = normalPDF(x, 0, 1) * BASE_COUNT;
+                const bayMenFlow = normalPDF(x, bayModel.menFlowMean, bayModel.menFlowSd) * bayModel.menFlowCountAbs;
+                const bayWomenFlow = normalPDF(x, bayModel.womenFlowMean, bayModel.womenFlowSd) * bayModel.womenFlowCountAbs;
+                const londonMenFlow = normalPDF(x, londonModel.menFlowMean, londonModel.menFlowSd) * londonModel.menFlowCountAbs;
+                const londonWomenFlow = normalPDF(x, londonModel.womenFlowMean, londonModel.womenFlowSd) * londonModel.womenFlowCountAbs;
+
+                popMaxY = Math.max(popMaxY, bayMenPDF, bayWomenPDF, londonMenPDF, londonWomenPDF,
+                    basePDF, bayMenFlow, bayWomenFlow, londonMenFlow, londonWomenFlow);
+            }
+
+            // Calculate multiplier chart min/max
+            const rarityPoints = [2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+            const baselineCity = buildCityModel({
+                menInflowShare: 0, womenInflowShare: 0,
+                menImmMeanPercentile: 50, womenImmMeanPercentile: 50,
+                menImmSD: 1, womenImmSD: 1
+            });
+
+            let multMinY = 1, multMaxY = 1;
+            rarityPoints.forEach(rarity => {
+                const pGlobal = 1 - 1 / rarity;
+
+                const bayMenMult = calculatePartnerRarity(pGlobal, 'man', bayModel) / calculatePartnerRarity(pGlobal, 'man', baselineCity);
+                const bayWomenMult = calculatePartnerRarity(pGlobal, 'woman', bayModel) / calculatePartnerRarity(pGlobal, 'woman', baselineCity);
+                const londonMenMult = calculatePartnerRarity(pGlobal, 'man', londonModel) / calculatePartnerRarity(pGlobal, 'man', baselineCity);
+                const londonWomenMult = calculatePartnerRarity(pGlobal, 'woman', londonModel) / calculatePartnerRarity(pGlobal, 'woman', baselineCity);
+
+                if (isFinite(bayMenMult)) { multMinY = Math.min(multMinY, bayMenMult); multMaxY = Math.max(multMaxY, bayMenMult); }
+                if (isFinite(bayWomenMult)) { multMinY = Math.min(multMinY, bayWomenMult); multMaxY = Math.max(multMaxY, bayWomenMult); }
+                if (isFinite(londonMenMult)) { multMinY = Math.min(multMinY, londonMenMult); multMaxY = Math.max(multMaxY, londonMenMult); }
+                if (isFinite(londonWomenMult)) { multMinY = Math.min(multMinY, londonWomenMult); multMaxY = Math.max(multMaxY, londonWomenMult); }
+            });
+
+            const multYPadding = (multMaxY - multMinY) * 0.1 || 0.1;
+
+            return {
+                popMaxY: popMaxY * 1.1,
+                multMinY: Math.max(0.1, multMinY - multYPadding),
+                multMaxY: multMaxY + multYPadding
+            };
+        }
+
+        function updateAllCharts() {
+            const bayModel = buildCityModel(BAY_AREA_PARAMS);
+            const londonModel = buildCityModel(LONDON_PARAMS);
+            const scales = calculateUnifiedScales(bayModel, londonModel);
+
+            if (popCharts.bay && popCharts.london) {
+                updatePopulationCharts(bayModel, londonModel, scales);
+            }
+            if (multCharts.bay && multCharts.london) {
+                updateMultiplierCharts(bayModel, londonModel, scales);
+            }
+        }
+
+        // Proactive resizing to handle responsive layout transitions
+        function resizeAllCharts() {
+            try {
+                if (popCharts.bay) { popCharts.bay.resize(); popCharts.bay.update('resize'); }
+                if (popCharts.london) { popCharts.london.resize(); popCharts.london.update('resize'); }
+                if (multCharts.bay) { multCharts.bay.resize(); multCharts.bay.update('resize'); }
+                if (multCharts.london) { multCharts.london.resize(); multCharts.london.update('resize'); }
+                // Reapply locked tooltips after resize to persist the lock state
+                if (popHoverState.locked && popHoverState.hoverIndex !== null) {
+                    try { syncPopulationHover(popHoverState.hoverIndex, popCharts.bay); } catch(e) {}
+                }
+                if (multHoverState.locked && multHoverState.hoverIndex !== null) {
+                    try { syncMultiplierHover(multHoverState.hoverIndex, multCharts.bay); } catch(e) {}
+                }
+            } catch(e) { /* no-op */ }
+        }
+
+        function isStackedMultiplier() {
+            const grid = document.querySelector('#multiplier-viz .charts-grid');
+            if (!grid) return window.matchMedia('(max-width: 768px)').matches;
+            const cols = getComputedStyle(grid).gridTemplateColumns.trim();
+            // Treat single column as stacked
+            return cols.split(/\s+/).length <= 1;
+        }
+
+        function applyMultiplierAxisPositions() {
+            const stacked = isStackedMultiplier();
+            try {
+                if (multCharts.bay) {
+                    multCharts.bay.options.scales.y.position = 'left';
+                }
+                if (multCharts.london) {
+                    // Right in side-by-side, left when stacked for aligned left edges
+                    multCharts.london.options.scales.y.position = stacked ? 'left' : 'right';
+                    // Show Y tick labels for London only in stacked mode
+                    multCharts.london.options.scales.y.ticks.callback = function(value) {
+                        if (stacked) return (typeof value === 'number' && isFinite(value)) ? value.toFixed(2) : value;
+                        return '';
+                    };
+                }
+            } catch (e) { /* no-op */ }
+        }
+
+        // Observe wrapper size changes (e.g., when grid switches columns)
+        let _chartResizeObserver = null;
+        function setupResizeObservers() {
+            try {
+                if (typeof ResizeObserver === 'undefined') return;
+                _chartResizeObserver = new ResizeObserver(() => {
+                    // Schedule to run after layout settles
+                    requestAnimationFrame(() => resizeAllCharts());
+                });
+                document.querySelectorAll('.chart-wrapper').forEach(el => _chartResizeObserver.observe(el));
+            } catch (e) { /* no-op */ }
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check URL parameters for visibility control
+            const urlParams = new URLSearchParams(window.location.search);
+            const showParam = urlParams.get('show');
+            const vizMode = (showParam === 'population') ? 'population'
+                           : (showParam === 'multiplier') ? 'multiplier'
+                           : 'both';
+            if (vizMode === 'population') {
+                document.body.classList.add('show-population-only');
+            } else if (vizMode === 'multiplier') {
+                document.body.classList.add('show-multiplier-only');
+            }
+
+            // Wire up detailed tooltip toggle for population charts (only if population charts are active)
+            if (vizMode !== 'multiplier') {
+                const popToggle = document.getElementById('popTooltipToggle');
+                if (popToggle) {
+                    popToggle.checked = false; // default off
+                    popToggle.addEventListener('change', () => {
+                        detailedPopTooltipsEnabled = !!popToggle.checked;
+                        // If tooltips are locked, unlock and clear on toggle
+                        if (popHoverState.locked) {
+                            popHoverState.locked = false;
+                            popHoverState.hoverIndex = null;
+                            clearPopulationHover();
+                        } else if (popHoverState.hoverIndex !== null) {
+                            // If hovering, refresh tooltips to reflect new mode
+                            try { syncPopulationHover(popHoverState.hoverIndex, popCharts.bay); } catch (e) {}
+                        }
+                    });
+                }
+            }
+
+            // Create charts only for visible visualization(s)
+            if (vizMode !== 'multiplier') {
+                popCharts.bay = createPopulationChart('popChartBay', false);
+                popCharts.london = createPopulationChart('popChartLondon', true);  // Hide Y ticks on London
+            }
+            if (vizMode !== 'population') {
+                multCharts.bay = createMultiplierChart('multChartBay', false);
+                multCharts.london = createMultiplierChart('multChartLondon', true);  // Hide Y ticks on London
+            }
+
+            // Set up hover handlers for population charts
+            const popBayCanvas = document.getElementById('popChartBay');
+            const popLondonCanvas = document.getElementById('popChartLondon');
+
+            function handlePopulationPointerMove(chart, evt) {
+                if (!chart) return;
+                if (popHoverState.locked) return;
+                const items = chart.getElementsAtEventForMode(evt, 'index', { intersect: false, axis: 'x' }, true);
+                if (items && items.length) {
+                    const idx = items[0].index;
+                    if (popHoverState.hoverIndex !== idx) {
+                        popHoverState.hoverIndex = idx;
+                        syncPopulationHover(idx, chart);
+                    }
+                } else {
+                    if (popHoverState.hoverIndex !== null) {
+                        popHoverState.hoverIndex = null;
+                        if (!popHoverState.locked) clearPopulationHover();
+                    }
+                }
+            }
+
+            function handlePopulationClick(chart, evt) {
+                if (!chart) return;
+                if (popHoverState.locked) {
+                    popHoverState.locked = false;
+                    popHoverState.hoverIndex = null;
+                    clearPopulationHover();
+                    return;
+                }
+                const items = chart.getElementsAtEventForMode(evt, 'index', { intersect: false, axis: 'x' }, true);
+                if (items && items.length) {
+                    const idx = items[0].index;
+                    popHoverState.locked = true;
+                    popHoverState.hoverIndex = idx;
+                    syncPopulationHover(idx, chart);
+                }
+            }
+
+            // Commonly used pointer leave events
+            const LEAVE_EVENTS = ['pointerleave','pointerout','pointercancel','mouseout'];
+
+            if (popBayCanvas) {
+                popBayCanvas.addEventListener('pointermove', (e) => handlePopulationPointerMove(popCharts.bay, e));
+                popBayCanvas.addEventListener('click', (e) => handlePopulationClick(popCharts.bay, e));
+                LEAVE_EVENTS.forEach(t =>
+                    popBayCanvas.addEventListener(t, () => {
+                        if (!popHoverState.locked) {
+                            popHoverState.hoverIndex = null;
+                            clearPopulationHover();
+                        }
+                    })
+                );
+            }
+            if (popLondonCanvas) {
+                popLondonCanvas.addEventListener('pointermove', (e) => handlePopulationPointerMove(popCharts.london, e));
+                popLondonCanvas.addEventListener('click', (e) => handlePopulationClick(popCharts.london, e));
+                LEAVE_EVENTS.forEach(t =>
+                    popLondonCanvas.addEventListener(t, () => {
+                        if (!popHoverState.locked) {
+                            popHoverState.hoverIndex = null;
+                            clearPopulationHover();
+                        }
+                    })
+                );
+            }
+
+            // Set up hover handlers for multiplier charts
+            const multBayCanvas = document.getElementById('multChartBay');
+            const multLondonCanvas = document.getElementById('multChartLondon');
+
+            function handleMultiplierPointerMove(chart, evt) {
+                if (!chart) return;
+                // When locked, ignore pointer moves to preserve the locked tooltip
+                if (multHoverState.locked) return;
+                const items = chart.getElementsAtEventForMode(evt, 'index', { intersect: false, axis: 'x' }, true);
+                if (items && items.length) {
+                    const idx = items[0].index;
+                    if (multHoverState.hoverIndex !== idx) {
+                        multHoverState.hoverIndex = idx;
+                        syncMultiplierHover(idx, chart);
+                    }
+                } else {
+                    if (multHoverState.hoverIndex !== null) {
+                        multHoverState.hoverIndex = null;
+                        // Only clear when not locked (redundant due to early return, but safe)
+                        if (!multHoverState.locked) clearMultiplierHover();
+                    }
+                }
+            }
+
+            function handleMultiplierClick(chart, evt) {
+                if (!chart) return;
+                // Toggle lock: if already locked, unlock and clear. If not locked and on a point, lock.
+                if (multHoverState.locked) {
+                    multHoverState.locked = false;
+                    multHoverState.hoverIndex = null;
+                    clearMultiplierHover();
+                    return;
+                }
+                const items = chart.getElementsAtEventForMode(evt, 'index', { intersect: false, axis: 'x' }, true);
+                if (items && items.length) {
+                    const idx = items[0].index;
+                    multHoverState.locked = true;
+                    multHoverState.hoverIndex = idx;
+                    // Apply synchronized hover at the locked index on both charts
+                    syncMultiplierHover(idx, chart);
+                }
+            }
+
+            if (multBayCanvas) {
+                multBayCanvas.addEventListener('pointermove', (e) => handleMultiplierPointerMove(multCharts.bay, e));
+                multBayCanvas.addEventListener('click', (e) => handleMultiplierClick(multCharts.bay, e));
+                LEAVE_EVENTS.forEach(t =>
+                    multBayCanvas.addEventListener(t, () => {
+                        if (!multHoverState.locked) {
+                            multHoverState.hoverIndex = null;
+                            clearMultiplierHover();
+                        }
+                    })
+                );
+            }
+            if (multLondonCanvas) {
+                multLondonCanvas.addEventListener('pointermove', (e) => handleMultiplierPointerMove(multCharts.london, e));
+                multLondonCanvas.addEventListener('click', (e) => handleMultiplierClick(multCharts.london, e));
+                LEAVE_EVENTS.forEach(t =>
+                    multLondonCanvas.addEventListener(t, () => {
+                        if (!multHoverState.locked) {
+                            multHoverState.hoverIndex = null;
+                            clearMultiplierHover();
+                        }
+                    })
+                );
+            }
+
+            // Clear on container leave
+            const popViz = document.getElementById('population-viz');
+            const multViz = document.getElementById('multiplier-viz');
+
+            if (popViz) {
+                ['mouseleave','pointerleave'].forEach(t =>
+                    popViz.addEventListener(t, () => {
+                        if (!popHoverState.locked) {
+                            popHoverState.hoverIndex = null;
+                            clearPopulationHover();
+                        }
+                    })
+                );
+            }
+
+            if (multViz) {
+                ['mouseleave','pointerleave'].forEach(t =>
+                    multViz.addEventListener(t, () => {
+                        if (!multHoverState.locked) {
+                            multHoverState.hoverIndex = null;
+                            clearMultiplierHover();
+                        }
+                    })
+                );
+            }
+
+            // Update all charts
+            updateAllCharts();
+
+            // Handle window resizes so charts reflow when switching between stacked and side-by-side layouts
+            let resizeTimer = null;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    requestAnimationFrame(() => { applyMultiplierAxisPositions(); resizeAllCharts(); });
+                }, 100);
+            });
+
+            // Also observe wrapper size changes (grid column changes) directly
+            setupResizeObservers();
+
+            // Ensure initial axis positions match current layout
+            applyMultiplierAxisPositions();
+            resizeAllCharts();
+        });
+    </script>
+    <script>
+        // Notify parent of this page's height so iframes can auto-resize
+        (function() {
+            function computeDocHeight() {
+                try {
+                    let s = document.getElementById('__embed_sentinel');
+                    if (!s) {
+                        s = document.createElement('div');
+                        s.id = '__embed_sentinel';
+                        s.style.cssText = 'position: relative; width:0; height:0; margin:0; padding:0;';
+                    }
+                    // Ensure sentinel is the last element so it reflects full content flow height
+                    if (s.parentNode !== document.body || document.body.lastElementChild !== s) {
+                        document.body.appendChild(s);
+                    }
+                    const rect = s.getBoundingClientRect();
+                    const h = Math.ceil(rect.top + rect.height);
+                    return Math.max(0, h);
+                } catch (e) { return 0; }
+            }
+
+            function postHeight() {
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'embed-size', height: computeDocHeight() }, '*');
+                    }
+                } catch (e) { /* no-op */ }
+            }
+
+            // Respond to explicit requests from wrapper iframes
+            window.addEventListener('message', (event) => {
+                const data = event.data || {};
+                if (data.type === 'request-embed-size') {
+                    postHeight();
+                }
+            });
+
+            window.addEventListener('load', () => postHeight());
+            window.addEventListener('resize', () => { setTimeout(postHeight, 50); setTimeout(postHeight, 250); });
+            if (typeof ResizeObserver !== 'undefined') {
+                try { new ResizeObserver(() => postHeight()).observe(document.body); } catch (e) { /* no-op */ }
+            }
+            // A couple of delayed posts to catch async chart layout
+            setTimeout(postHeight, 150);
+            setTimeout(postHeight, 350);
+        })();
+    </script>
+</body>
+</html>

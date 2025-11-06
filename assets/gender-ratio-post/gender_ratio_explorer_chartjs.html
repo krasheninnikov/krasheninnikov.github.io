@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban gender ratio explorer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <style>
+        html, body { overflow-x: hidden; overflow-y: hidden; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            background-color: white;
+            padding: 15px;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            margin-bottom: 15px;
+            padding: 12px;
+            background-color: #f0f7ff;
+            border-left: 4px solid #4A90E2;
+            border-radius: 4px;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 20px;
+            /* Tighten bottom spacing to minimal */
+            margin-bottom: 3px;
+        }
+
+        .sidebar {
+            flex: 0 0 230px;
+            display: flex;
+            flex-direction: column;
+            max-height: 500px;
+        }
+
+        .chart-area {
+            flex: 1;
+            min-width: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #555;
+            font-size: 13px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 13px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4A90E2;
+        }
+
+        input[type="text"]:hover {
+            border-color: #aaa;
+        }
+
+        .city-list {
+            width: 100%;
+            height: 150px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        .city-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.15s;
+            user-select: none;
+        }
+
+        .city-item:hover {
+            background-color: #f0f7ff;
+        }
+
+        .city-item input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .city-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+            flex: 1;
+            font-size: 12px;
+        }
+
+        .search-info {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .action-btn:hover {
+            background-color: #e5e5e5;
+            border-color: #bbb;
+        }
+
+        .action-btn:active {
+            background-color: #ddd;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 275px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        @media (max-width: 640px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                flex: 0 0 auto;
+                max-height: none;
+                margin-bottom: 15px;
+            }
+
+            .city-list {
+                height: 120px;
+            }
+
+            .chart-container {
+                height: 330px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Urban gender ratio explorer</h1>
+
+        <div class="info">
+            You can select multiple cities. Ratio above 1.0 (y-axis value) means more males than females.
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <input type="text" id="citySearch" placeholder="Type to search cities..." aria-label="Search cities">
+                <div class="search-info" id="searchInfo"></div>
+                <div class="city-list" id="cityList">
+                    <div style="text-align: center; color: #666; font-size: 12px;">Loading cities...</div>
+                </div>
+                <div class="button-group">
+                    <button class="action-btn" id="defaultSelectionBtn">Default</button>
+                    <button class="action-btn" id="unselectAllBtn">Clear</button>
+                </div>
+            </div>
+
+            <div class="chart-area">
+                <div class="chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate short city nicknames for tooltips
+        function getShortCityName(fullName) {
+            // Remove country suffix (everything after last comma)
+            let name = fullName.replace(/,\s*[^,]+$/, '');
+
+            // Remove common suffixes
+            name = name
+                .replace(/\s+Area$/i, '')
+                .replace(/\s+Region$/i, '')
+                .replace(/\s+County$/i, '')
+                .replace(/\s+Urban Core$/i, '')
+                .replace(/\s+Metro$/i, '')
+                .replace(/\s+Metropolitan$/i, '');
+
+            // Specific city mappings
+            const customMappings = {
+                'New York City': 'NYC',
+                'Los Angeles Region': 'Los Angeles',
+                'Los Angeles Urban Core': 'LA Urban Core',
+                'San Francisco Bay Area': 'SF Bay Area',
+                'West Midlands (Birmingham/Black Country)': 'Birmingham',
+                'Dallas-Fort Worth': 'Dallas-Fort Worth',
+                'Minneapolis-St. Paul': 'Minneapolis-St. Paul',
+                'Miami-Dade/Broward': 'Miami',
+                'Tampa Bay Area': 'Tampa Bay',
+                'Virginia Beach-Norfolk': 'Virginia Beach',
+                'Raleigh-Durham': 'Raleigh-Durham',
+                'Washington DC Area': 'DC',
+                'Rhine-Ruhr': 'Rhine-Ruhr',
+                'Frankfurt Rhine-Main': 'Frankfurt',
+                'Leipzig-Halle': 'Leipzig-Halle'
+            };
+
+            // Check if there's a custom mapping for the original full name
+            for (const [key, value] of Object.entries(customMappings)) {
+                if (fullName.includes(key)) {
+                    return value;
+                }
+            }
+
+            return name.trim();
+        }
+
+        // Normalize string for fuzzy search
+        const normalize = s => (s || "")
+            .toLowerCase()
+            .normalize("NFD").replace(/\p{Diacritic}/gu, "")
+            .replace(/[^a-z0-9\s]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+
+        // Fuzzy search scoring function
+        function fuzzyScore(target, q) {
+            if (!q) return 100;
+            const T = normalize(target);
+            const Q = normalize(q);
+            if (!T || !Q) return 0;
+
+            // Exact / prefix / substring quick wins
+            if (T === Q) return 100;
+            if (T.startsWith(Q)) return 95;
+            if (T.includes(Q)) return 80;
+
+            // Token-ordered subsequence
+            const qTokens = Q.split(" ");
+            let pos = 0, hits = 0;
+            for (const tok of qTokens) {
+                const f = T.indexOf(tok, pos);
+                if (f === -1) { hits = 0; break; }
+                hits += Math.min(tok.length, 6);
+                pos = f + tok.length;
+            }
+            if (hits) {
+                const tightness = Math.max(0, 1 - (pos - Q.length) / Math.max(T.length, 1));
+                return Math.round(60 + 10 * tightness + Math.min(10, hits));
+            }
+
+            // Fallback: in-order character subsequence
+            let i = 0, j = 0, matched = 0;
+            while (i < T.length && j < Q.length) {
+                if (T[i] === Q[j]) { matched++; j++; }
+                i++;
+            }
+            if (matched / Q.length >= 0.6) {
+                return Math.round(50 + 40 * (matched / Q.length));
+            }
+
+            return 0;
+        }
+
+        // Map country codes to full names for better search
+        const countryExpansions = {
+            'USA': 'United States',
+            'UK': 'United Kingdom',
+            'Germany': 'Germany',
+            'Canada': 'Canada',
+            'France': 'France',
+            'Spain': 'Spain',
+            'Italy': 'Italy',
+            'Netherlands': 'Netherlands',
+            'Belgium': 'Belgium',
+            'Switzerland': 'Switzerland',
+            'Austria': 'Austria',
+            'Sweden': 'Sweden',
+            'Norway': 'Norway',
+            'Denmark': 'Denmark',
+            'Finland': 'Finland',
+            'Poland': 'Poland',
+            'Portugal': 'Portugal',
+            'Ireland': 'Ireland',
+            'Australia': 'Australia',
+            'New Zealand': 'New Zealand',
+            'Japan': 'Japan',
+            'South Korea': 'South Korea',
+            'Singapore': 'Singapore'
+        };
+
+        // City aliases and search terms for better discoverability
+        const cityAliases = {
+            // California
+            'Los Angeles Region, USA': ['LA', 'Los Angeles', 'California', 'CA'],
+            'Los Angeles Urban Core, USA': ['LA Core', 'Downtown LA', 'Central LA', 'California', 'CA'],
+            'San Francisco Bay Area, USA': ['SF', 'San Francisco', 'Bay Area', 'Oakland', 'Berkeley', 'San Jose', 'Silicon Valley', 'California', 'CA'],
+            'San Diego County, USA': ['San Diego', 'California', 'CA'],
+            'Sacramento Area, USA': ['Sacramento', 'California', 'CA'],
+            'Inland Empire, USA': ['Inland Empire', 'Riverside', 'San Bernardino', 'California', 'CA'],
+
+            // New York
+            'New York City, USA': ['NYC', 'New York', 'Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'NY'],
+            'Buffalo Area, USA': ['Buffalo', 'New York', 'NY'],
+
+            // Massachusetts
+            'Boston Area, USA': ['Boston', 'Cambridge', 'Massachusetts', 'MA'],
+
+            // Illinois
+            'Chicago Area, USA': ['Chicago', 'Illinois', 'IL'],
+
+            // Texas
+            'Dallas-Fort Worth, USA': ['Dallas', 'Fort Worth', 'DFW', 'Texas', 'TX'],
+            'Houston Area, USA': ['Houston', 'Texas', 'TX'],
+            'Austin, USA': ['Austin', 'Texas', 'TX'],
+            'San Antonio, USA': ['San Antonio', 'Texas', 'TX'],
+
+            // Arizona
+            'Phoenix Urban Core, USA': ['Phoenix', 'Arizona', 'AZ'],
+
+            // Pennsylvania
+            'Philadelphia Area, USA': ['Philadelphia', 'Philly', 'Pennsylvania', 'PA'],
+            'Pittsburgh Area, USA': ['Pittsburgh', 'Pennsylvania', 'PA'],
+
+            // Washington
+            'Seattle Area, USA': ['Seattle', 'Washington', 'WA'],
+
+            // Oregon
+            'Portland, USA': ['Portland', 'Oregon', 'OR'],
+
+            // Colorado
+            'Denver Area, USA': ['Denver', 'Colorado', 'CO'],
+
+            // Florida
+            'Miami-Dade/Broward, USA': ['Miami', 'Fort Lauderdale', 'Broward', 'Florida', 'FL'],
+            'Tampa Bay Area, USA': ['Tampa', 'St. Petersburg', 'Florida', 'FL'],
+            'Orlando Area, USA': ['Orlando', 'Florida', 'FL'],
+            'Jacksonville, USA': ['Jacksonville', 'Florida', 'FL'],
+
+            // Georgia
+            'Atlanta Area, USA': ['Atlanta', 'Georgia', 'GA'],
+
+            // Michigan
+            'Detroit Area, USA': ['Detroit', 'Michigan', 'MI'],
+
+            // Minnesota
+            'Minneapolis-St. Paul, USA': ['Minneapolis', 'St. Paul', 'Twin Cities', 'Minnesota', 'MN'],
+
+            // Nevada
+            'Las Vegas, USA': ['Las Vegas', 'Vegas', 'Nevada', 'NV'],
+
+            // DC/Maryland/Virginia
+            'Washington DC Area, USA': ['DC', 'Washington', 'District of Columbia', 'DMV'],
+            'Baltimore Area, USA': ['Baltimore', 'Maryland', 'MD'],
+            'Virginia Beach-Norfolk, USA': ['Virginia Beach', 'Norfolk', 'Hampton Roads', 'Virginia', 'VA'],
+            'Richmond Area, USA': ['Richmond', 'Virginia', 'VA'],
+
+            // North Carolina
+            'Charlotte Area, USA': ['Charlotte', 'North Carolina', 'NC'],
+            'Raleigh-Durham, USA': ['Raleigh', 'Durham', 'Research Triangle', 'North Carolina', 'NC'],
+
+            // Tennessee
+            'Nashville Area, USA': ['Nashville', 'Tennessee', 'TN'],
+
+            // Louisiana
+            'New Orleans Area, USA': ['New Orleans', 'NOLA', 'Louisiana', 'LA'],
+
+            // Ohio
+            'Columbus Ohio, USA': ['Columbus', 'Ohio', 'OH'],
+            'Cleveland Area, USA': ['Cleveland', 'Ohio', 'OH'],
+            'Cincinnati Area, USA': ['Cincinnati', 'Ohio', 'OH'],
+
+            // Indiana
+            'Indianapolis Area, USA': ['Indianapolis', 'Indy', 'Indiana', 'IN'],
+
+            // Wisconsin
+            'Milwaukee Area, USA': ['Milwaukee', 'Wisconsin', 'WI'],
+
+            // Missouri
+            'Kansas City Area, USA': ['Kansas City', 'KC', 'Missouri', 'MO', 'Kansas', 'KS'],
+            'St. Louis, USA': ['St. Louis', 'Saint Louis', 'Missouri', 'MO'],
+
+            // Kentucky
+            'Louisville Area, USA': ['Louisville', 'Kentucky', 'KY'],
+
+            // Oklahoma
+            'Oklahoma City Area, USA': ['Oklahoma City', 'OKC', 'Oklahoma', 'OK'],
+
+            // Utah
+            'Salt Lake City Area, USA': ['Salt Lake City', 'SLC', 'Utah', 'UT'],
+
+            // UK - England
+            'London, UK': ['London', 'England'],
+            'Greater Manchester, UK': ['Manchester', 'England'],
+            'West Midlands (Birmingham/Black Country), UK': ['Birmingham', 'Black Country', 'West Midlands', 'England'],
+            'Cambridge, UK': ['Cambridge', 'England'],
+            'Oxford, UK': ['Oxford', 'England'],
+            'Bristol, UK': ['Bristol', 'England'],
+            'Liverpool, UK': ['Liverpool', 'England'],
+            'West Yorkshire, UK': ['Leeds', 'Bradford', 'Yorkshire', 'England'],
+            'South Yorkshire, UK': ['Sheffield', 'Yorkshire', 'England'],
+            'Leicester, UK': ['Leicester', 'England'],
+            'Nottingham, UK': ['Nottingham', 'England'],
+            'Tyneside, UK': ['Newcastle', 'Tyneside', 'England'],
+            'Sunderland, UK': ['Sunderland', 'England'],
+
+            // UK - Scotland
+            'Edinburgh, UK': ['Edinburgh', 'Scotland'],
+            'Glasgow, UK': ['Glasgow', 'Scotland'],
+
+            // UK - Wales
+            'Cardiff, UK': ['Cardiff', 'Wales'],
+
+            // Canada
+            'Toronto, Canada': ['Toronto', 'Ontario'],
+            'Vancouver, Canada': ['Vancouver', 'British Columbia', 'BC'],
+            'Montreal, Canada': ['Montreal', 'Quebec'],
+            'Calgary, Canada': ['Calgary', 'Alberta'],
+            'Edmonton, Canada': ['Edmonton', 'Alberta'],
+
+            // Germany
+            'Berlin, Germany': ['Berlin'],
+            'Munich, Germany': ['Munich', 'München', 'Bavaria'],
+            'Hamburg, Germany': ['Hamburg'],
+            'Frankfurt Rhine-Main, Germany': ['Frankfurt', 'Rhine-Main', 'Hesse'],
+            'Rhine-Ruhr, Germany': ['Ruhr', 'Düsseldorf', 'Dortmund', 'Essen', 'Cologne', 'Köln'],
+            'Stuttgart, Germany': ['Stuttgart', 'Baden-Württemberg'],
+            'Bremen, Germany': ['Bremen'],
+            'Hanover, Germany': ['Hanover', 'Hannover'],
+            'Leipzig-Halle, Germany': ['Leipzig', 'Halle'],
+            'Nuremberg, Germany': ['Nuremberg', 'Nürnberg', 'Bavaria']
+        };
+
+        // Color palette for chart lines
+        const colorPalette = [
+            'rgb(54, 162, 235)',
+            'rgb(255, 99, 132)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 159, 64)',
+            'rgb(153, 102, 255)',
+            'rgb(255, 205, 86)',
+            'rgb(201, 203, 207)',
+            'rgb(255, 99, 71)',
+            'rgb(144, 238, 144)',
+            'rgb(221, 160, 221)'
+        ];
+
+        // Load and parse JSON data
+        async function loadData() {
+            const response = await fetch('data/combined_urban_gender_ratios.json');
+            const jsonData = await response.json();
+
+            const data = {};
+            const cities = [];
+            const cityMetadata = {};
+
+            for (const [cityKey, ratios] of Object.entries(jsonData)) {
+                // Extract city and country from key "City, Country"
+                const lastComma = cityKey.lastIndexOf(', ');
+                const city = cityKey.substring(0, lastComma);
+                const country = cityKey.substring(lastComma + 2);
+
+                cities.push(cityKey);
+
+                // Build arrays of ages and ratios (skipping null values)
+                const ages = [];
+                const ratioValues = [];
+
+                for (let age = 0; age < ratios.length; age++) {
+                    if (ratios[age] !== null) {
+                        ages.push(age);
+                        ratioValues.push(ratios[age]);
+                    }
+                }
+
+                data[cityKey] = {
+                    ages: ages,
+                    ratios: ratioValues
+                };
+
+                cityMetadata[cityKey] = {
+                    city,
+                    country,
+                    fullCountry: countryExpansions[country] || country
+                };
+            }
+
+            return {
+                data,
+                cities: cities.sort(),
+                metadata: cityMetadata
+            };
+        }
+
+        // Initialize the application
+        let allData = {};
+        let cityList = [];
+        let allCities = [];
+        let cityMetadata = {};
+        let chart = null;
+
+        // Hover/lock state for tooltip persistence
+        const LEAVE_EVENTS = ['pointerleave', 'pointerout', 'pointercancel', 'mouseout'];
+        let hoverState = {
+            hoverIndex: null,
+            locked: false
+        };
+
+        function anchorForPoint(c, datasetIndex, index) {
+            try {
+                const ds = c?.data?.datasets?.[datasetIndex];
+                const pt = ds?.data?.[index];
+                if (!pt || !c?.scales?.x || !c?.scales?.y) return { x: 0, y: 0 };
+                const x = c.scales.x.getPixelForValue(pt.x);
+                const y = c.scales.y.getPixelForValue(pt.y);
+                return { x, y };
+            } catch (e) {
+                return { x: 0, y: 0 };
+            }
+        }
+
+        function clearTooltip() {
+            if (!chart) return;
+            try {
+                chart.setActiveElements([]);
+                chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+                chart.update('none');
+            } catch (e) { /* no-op */ }
+        }
+
+        function anchorForIndex(c, index) {
+            try {
+                const dsArr = c?.data?.datasets || [];
+                for (let di = 0; di < dsArr.length; di++) {
+                    const ds = dsArr[di];
+                    if (ds && Array.isArray(ds.data) && index >= 0 && index < ds.data.length) {
+                        return anchorForPoint(c, di, index);
+                    }
+                }
+            } catch (e) { /* no-op */ }
+            return { x: 0, y: 0 };
+        }
+
+        function applyGroupAtIndex(index) {
+            if (!chart) return;
+            try {
+                if (index == null || index < 0) return;
+                const active = [];
+                chart.data.datasets.forEach((ds, datasetIndex) => {
+                    if (Array.isArray(ds.data) && index < ds.data.length) {
+                        active.push({ datasetIndex, index });
+                    }
+                });
+                chart.setActiveElements(active);
+                chart.tooltip.setActiveElements(active, anchorForIndex(chart, index));
+                chart.update('none');
+            } catch (e) { /* no-op */ }
+        }
+
+        function reapplyLockedTooltip() {
+            if (!hoverState.locked) return;
+            if (hoverState.hoverIndex == null) return;
+            applyGroupAtIndex(hoverState.hoverIndex);
+        }
+
+        // Track selected cities
+        let selectedCities = new Set();
+
+        // Filter and display cities based on search
+        function filterCities(query, returnOnly = false) {
+            const searchInfo = document.getElementById('searchInfo');
+
+            if (!query || query.length < 1) {
+                // Show all cities
+                if (!returnOnly) {
+                    renderCityList(allCities);
+                    searchInfo.textContent = `Showing all ${allCities.length} cities (scroll)`;
+                }
+                return allCities;
+            }
+
+            // Score and filter cities - search against city name, country, and aliases
+            const scored = allCities.map(city => {
+                const metadata = cityMetadata[city];
+                const aliases = cityAliases[city] || [];
+
+                // Get scores from different sources
+                const cityScore = fuzzyScore(city, query);
+                const countryScore = metadata ? fuzzyScore(metadata.fullCountry, query) : 0;
+
+                // Check aliases - give high score for good alias matches
+                let aliasScore = 0;
+                for (const alias of aliases) {
+                    const score = fuzzyScore(alias, query);
+                    aliasScore = Math.max(aliasScore, score);
+                }
+
+                // Use the best score from all sources
+                const bestScore = Math.max(cityScore, countryScore, aliasScore);
+
+                return {
+                    city,
+                    score: bestScore
+                };
+            }).filter(item => item.score > 0);
+
+            // Sort by score (desc), then by name length, then alphabetically
+            scored.sort((a, b) =>
+                b.score - a.score ||
+                a.city.length - b.city.length ||
+                a.city.localeCompare(b.city)
+            );
+
+            const filtered = scored.map(item => item.city);
+            if (!returnOnly) {
+                renderCityList(filtered);
+                searchInfo.textContent = `Showing ${filtered.length} of ${allCities.length} cities`;
+            }
+            return filtered;
+        }
+
+        // Render city list with checkboxes
+        function renderCityList(cities) {
+            const listContainer = document.getElementById('cityList');
+            listContainer.innerHTML = '';
+
+            cities.forEach(city => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'city-item';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `city-${city}`;
+                checkbox.value = city;
+                checkbox.checked = selectedCities.has(city);
+
+                const label = document.createElement('label');
+                label.setAttribute('for', checkbox.id);
+                label.textContent = city;
+
+                // Handle checkbox changes for keyboard accessibility
+                checkbox.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        selectedCities.add(city);
+                    } else {
+                        selectedCities.delete(city);
+                    }
+                    updateChart();
+                });
+
+                // Make the entire row clickable (but skip if clicking checkbox/label)
+                itemDiv.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                });
+
+                itemDiv.appendChild(checkbox);
+                itemDiv.appendChild(label);
+                listContainer.appendChild(itemDiv);
+            });
+        }
+
+        async function init() {
+            const { data, cities, metadata } = await loadData();
+            allData = data;
+            cityList = cities;
+            allCities = cities;
+            cityMetadata = metadata;
+
+            // Set initial selection to Bay Area, New York, and London
+            selectedCities = new Set([
+                'San Francisco Bay Area, USA',
+                'New York City, USA',
+                'London, UK'
+            ]);
+
+            // Render city list
+            renderCityList(allCities);
+
+            // Set up search input
+            const searchInput = document.getElementById('citySearch');
+            searchInput.addEventListener('input', (e) => {
+                filterCities(e.target.value);
+            });
+
+            // Set up default selection button
+            const defaultSelectionBtn = document.getElementById('defaultSelectionBtn');
+            defaultSelectionBtn.addEventListener('click', () => {
+                selectedCities = new Set([
+                    'San Francisco Bay Area, USA',
+                    'New York City, USA',
+                    'London, UK'
+                ]);
+                renderCityList(searchInput.value ? filterCities(searchInput.value, true) : allCities);
+                updateChart();
+            });
+
+            // Set up unselect all button
+            const unselectAllBtn = document.getElementById('unselectAllBtn');
+            unselectAllBtn.addEventListener('click', () => {
+                selectedCities.clear();
+                renderCityList(searchInput.value ? filterCities(searchInput.value, true) : allCities);
+                updateChart();
+            });
+
+            // Initial search info
+            document.getElementById('searchInfo').textContent = `Showing all ${allCities.length} cities (scroll)`;
+
+            // Initialize chart
+            const ctx = document.getElementById('chart').getContext('2d');
+            // Minimal plugin to add space between legend and plot
+            const legendSpacingPlugin = {
+                id: 'legendSpacing',
+                beforeUpdate(chart, args, opts) {
+                    const p = (opts && opts.padding) || 12;
+                    const legend = chart.legend;
+                    if (!legend || legend.$spaced || typeof legend.fit !== 'function') return;
+                    const fit = legend.fit;
+                    legend.fit = function() { fit.call(this); this.height += p; };
+                    legend.$spaced = true;
+                }
+            };
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: []
+                },
+                plugins: [legendSpacingPlugin],
+                options: {
+                    events: [],
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'nearest',
+                        intersect: false,
+                        axis: 'x'
+                    },
+                    plugins: {
+                        legendSpacing: { padding: 12 },
+                        title: {
+                            display: false
+                        },
+                        legend: {
+                            position: 'top',
+                            align: 'start',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 8,
+                                boxWidth: 15,
+                                boxHeight: 15,
+                                font: {
+                                    size: 11
+                                }
+                            },
+                            maxWidth: 600
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const shortName = getShortCityName(context.dataset.label);
+                                    return shortName + ': ' + context.parsed.y.toFixed(4);
+                                }
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: 1.0,
+                                    yMax: 1.0,
+                                    borderColor: 'rgba(0, 0, 0, 0.3)',
+                                    borderWidth: 1,
+                                    borderDash: [5, 5]
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            title: {
+                                display: true,
+                                text: 'Age'
+                            },
+                            grid: {
+                                color: '#e5e5e5'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Male / Female Ratio'
+                            },
+                            grid: {
+                                color: '#e5e5e5'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Initial plot
+            updateChart();
+
+            // Tooltip hover + lock handlers (mirrors city_comparison_split behavior)
+            const canvas = document.getElementById('chart');
+            if (canvas) {
+                canvas.addEventListener('pointermove', (evt) => {
+                    if (!chart) return;
+                    if (hoverState.locked) return; // Ignore pointer moves when locked
+                    const items = chart.getElementsAtEventForMode(evt, 'index', { intersect: false, axis: 'x' }, true);
+                    if (items && items.length) {
+                        const idx = items[0].index;
+                        if (hoverState.hoverIndex !== idx) {
+                            hoverState.hoverIndex = idx;
+                            applyGroupAtIndex(idx);
+                        }
+                    } else {
+                        if (hoverState.hoverIndex !== null) {
+                            hoverState.hoverIndex = null;
+                            if (!hoverState.locked) clearTooltip();
+                        }
+                    }
+                });
+
+                canvas.addEventListener('click', (evt) => {
+                    if (!chart) return;
+                    // Toggle lock: unlock on any click if locked; otherwise lock group at hovered index
+                    if (hoverState.locked) {
+                        hoverState.locked = false;
+                        hoverState.hoverIndex = null;
+                        clearTooltip();
+                        return;
+                    }
+                    const items = chart.getElementsAtEventForMode(evt, 'index', { intersect: false, axis: 'x' }, true);
+                    if (items && items.length) {
+                        const idx = items[0].index;
+                        hoverState.locked = true;
+                        hoverState.hoverIndex = idx;
+                        applyGroupAtIndex(idx);
+                    }
+                });
+
+                LEAVE_EVENTS.forEach(t =>
+                    canvas.addEventListener(t, () => {
+                        if (!hoverState.locked) {
+                            hoverState.hoverIndex = null;
+                            clearTooltip();
+                        }
+                    })
+                );
+            }
+
+            // Reapply locked tooltip on resize so it persists visually
+            window.addEventListener('resize', () => {
+                reapplyLockedTooltip();
+            });
+        }
+
+        function updateChart() {
+            const selectedCitiesArray = Array.from(selectedCities);
+            const infoBox = document.querySelector('.info');
+
+            if (selectedCitiesArray.length === 0) {
+                chart.data.datasets = [];
+                chart.update();
+                infoBox.textContent = 'Select cities to view gender ratios.';
+                return;
+            }
+
+            // Reset info text when cities are selected
+            infoBox.textContent = 'You can select multiple cities. Ratio above 1.0 (y-axis value) means more males than females.';
+
+            const datasets = selectedCitiesArray.map((city, index) => {
+                const cityData = allData[city];
+                const color = colorPalette[index % colorPalette.length];
+
+                return {
+                    label: city,
+                    data: cityData.ages.map((age, i) => ({
+                        x: age,
+                        y: cityData.ratios[i]
+                    })),
+                    borderColor: color,
+                    backgroundColor: color,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    tension: 0.1
+                };
+            });
+
+            chart.data.datasets = datasets;
+            chart.update();
+            // Reset lock on dataset changes per user preference
+            hoverState.locked = false;
+            hoverState.hoverIndex = null;
+            clearTooltip();
+        }
+
+        // Start the application
+        init();
+    </script>
+    <script>
+        // Auto-resize when embedded in an iframe
+        (function() {
+            function computeDocHeight() {
+                try {
+                    let s = document.getElementById('__embed_sentinel');
+                    if (!s) {
+                        s = document.createElement('div');
+                        s.id = '__embed_sentinel';
+                        s.style.cssText = 'position: relative; width:0; height:0; margin:0; padding:0;';
+                    }
+                    if (s.parentNode !== document.body || document.body.lastElementChild !== s) {
+                        document.body.appendChild(s);
+                    }
+                    const rect = s.getBoundingClientRect();
+                    const h = Math.ceil(rect.top + rect.height);
+                    return Math.max(0, h);
+                } catch (e) { return 0; }
+            }
+            function postHeight() {
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'embed-size', height: computeDocHeight() }, '*');
+                    }
+                } catch (e) { /* no-op */ }
+            }
+            window.addEventListener('message', (event) => {
+                const data = event.data || {};
+                if (data.type === 'request-embed-size') {
+                    postHeight();
+                }
+            });
+            window.addEventListener('load', () => postHeight());
+            window.addEventListener('resize', () => { setTimeout(postHeight, 50); setTimeout(postHeight, 250); });
+            if (typeof ResizeObserver !== 'undefined') {
+                try { new ResizeObserver(() => postHeight()).observe(document.body); } catch (e) { /* no-op */ }
+            }
+            setTimeout(postHeight, 150);
+            setTimeout(postHeight, 350);
+        })();
+    </script>
+</body>
+</html>
