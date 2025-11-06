@@ -1,5 +1,7 @@
+I am a final-year PhD student at Cambridge, working on AI safety with David Krueger and Rich Turner. I think it's plausible that we'll build AI systems capable of doing *everything humans can do using computers* in the next decade, and that we should try ensure that deploying such systems won't lead humanity to permanently lose control over our future.
 
-I am a PhD student in machine learning at the University of Cambridge, working on AI safety with David Krueger and Rich Turner. I think it's plausible that we'll build AI systems capable of doing *everything humans can do using computers* in the next decade, and am hoping to ensure that the inevitably widespread deployment of such systems won't lead humanity to permanently lose control over our future.
+I'm into a pretty broad range of research topics, lately focusing on a mix of interpretability / science of deep learning / control / security. 
+My claim to fame is coining "out-of-context learning" in an early version of [this paper](/implicit-meta-learning/). More recently, we showed that [language models linearly encode at which point of training they learned a specific fact](/training-order/).
 
 Before Cambridge, I earned my MSc in AI from the University of Amsterdam, and worked with <a href="https://humancompatible.ai/about">UC Berkeley's Center for Human-Compatible AI</a> during and after my studies. I also spent a year at Sony AI Zurich researching deep RL and robotics.
 
