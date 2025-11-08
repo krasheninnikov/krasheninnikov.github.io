@@ -62,6 +62,10 @@ Stereotypically, dating in the Bay Area is pretty rough for straight men – too
 details.collapsible-table { margin: 0.5rem 0 1rem; }
 details.collapsible-table summary { cursor: pointer; font-weight: 600; }
 details.collapsible-table .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 0.5rem; }
+details.appendix-d-sources { margin: 0.5rem 0 1rem; }
+details.appendix-d-sources summary { cursor: pointer; font-weight: 600; }
+details.appendix-d-sources .appendix-d-body { margin-top: 0.45rem; border-left: 2px solid #ddd; padding-left: 0.85rem; }
+details.appendix-d-sources .appendix-d-body ul { margin: 0.35rem 0; }
 </style>
 
 ## **1. Measuring dating success through "rarity"**
@@ -280,6 +284,28 @@ Small warning: I made summaries for items 2-6 below with a good bit of LLM assis
 
 ## Appendix D: data sources
 
-The *Gender ratio explorer* chart combines male/female population by age for major urban areas using official sources: U.S. Census Bureau (American Community Survey 5‑Year, 2023 via the Census API), UK ONS Mid‑Year Estimates (2024), Statistics Canada (2021 Census), Germany Census 2024 (DESTATIS GENESIS, Table 12411-0018 (02‑03‑4)), and city statistical releases for Helsinki, Seoul, Tokyo, and Buenos Aires. City‑level sources: [Sydney, Melbourne, Brisbane, Perth, Adelaide](https://www.abs.gov.au/census/find-census-data/datapacks) – 2021 Census (ABS); [Milan](https://dati.comune.milano.it/dataset/ds595_posas_popolazione_per_sesso_eta_e_stato_civile_nel_comune_di/resource/9a12e79f-a7bb-4a6b-bf09-645bb13babfe) – 2023; [Brussels Region](https://bestat.statbel.fgov.be/bestat/crosstable.xhtml?view=fc14c1ce-7361-4d42-a892-fce8e81a1b79) – 2025 (as of Jan 1, Statbel); [Paris Region, Paris (Commune), Marseille](https://www.insee.fr/fr/statistiques/zones/7633062) – 2021 (INSEE RP2021); [Rome](https://www.comune.roma.it/web-resources/cms/documents/02_Popolazione_Annuario_2021.pdf) – 2021 (Annuario Statistico).
+The <em>Gender ratio explorer</em> chart combines male/female population by age for major urban areas using official sources.
+
+<details class="appendix-d-sources">
+  <summary>Show sources</summary>
+  <div class="appendix-d-body">
+    <p><strong>National sources</strong></p>
+    <ul>
+      <li>U.S. Census Bureau (American Community Survey 5-Year, 2023 via the Census API)</li>
+      <li>UK ONS Mid-Year Estimates (2024)</li>
+      <li>Statistics Canada (2021 Census)</li>
+      <li>Germany Census 2024 (DESTATIS GENESIS, Table 12411-0018 (02-03-4))</li>
+      <li><a href="https://www.abs.gov.au/census/find-census-data/datapacks">Australia: Sydney, Melbourne, Brisbane, Perth, Adelaide</a> – 2021 Census (ABS)</li>
+      <li><a href="https://www.insee.fr/fr/statistiques/zones/7633062">France: Paris Region, Paris (Commune), Marseille</a> – 2021 (INSEE RP2021)</li>
+      <li><a href="https://bestat.statbel.fgov.be/bestat/crosstable.xhtml?view=fc14c1ce-7361-4d42-a892-fce8e81a1b79">Belgium: Brussels Region</a> – 2025 (as of Jan 1, Statbel)</li>
+    </ul>
+    <p><strong>City-level releases</strong></p>
+    <ul>
+      <li><a href="https://www.comune.roma.it/web-resources/cms/documents/02_Popolazione_Annuario_2021.pdf">Rome</a> – 2021 (Annuario Statistico)</li>
+      <li><a href="https://dati.comune.milano.it/dataset/ds595_posas_popolazione_per_sesso_eta_e_stato_civile_nel_comune_di/resource/9a12e79f-a7bb-4a6b-bf09-645bb13babfe">Milan</a> – 2023</li>
+      <li>Helsinki, Seoul, Tokyo, Buenos Aires  – city statistical releases</li>
+    </ul>
+  </div>
+</details>
 
 Age bins are normalized into single-year ranges with linear interpolation where ground truth data is not granular enough.

@@ -41,6 +41,16 @@
             text-align: center;
             margin: 0;
         }
+        .axis-info {
+            margin: 12px auto 18px;
+            max-width: 700px;
+            padding: 12px;
+            background-color: #f0f7ff;
+            border-left: 4px solid #4A90E2;
+            border-radius: 4px;
+            color: #333;
+            font-size: 0.85em;
+        }
 
         /* Header row for title + controls */
         .viz-header {
@@ -266,6 +276,9 @@
         <div class="viz-header">
             <h2 class="viz-title">Population distributions</h2>
         </div>
+        <p class="axis-info">
+            X-axis: global desirability z-score (standard deviations from the worldwide average). Hover for a tooltip showing what this means as a percentile (relative to the same global reference), and the M:F ratio at the given desirability level. Click to lock the tooltip in place.
+        </p>
 
         <div class="charts-grid">
             <div class="city-chart">
@@ -329,6 +342,9 @@
     <!-- Partner Rarity Multiplier Visualization -->
     <div class="visualization-container" id="multiplier-viz">
         <h2 class="viz-title">Partner rarity multiplier</h2>
+        <p class="axis-info">
+            Hover to see how a given '1-in-N' rarity level maps to the typical partner rarity; click to lock the tooltip.
+        </p>
 
         <div class="charts-with-label">
             <div class="y-axis-label">Multiplier</div>
@@ -698,10 +714,10 @@
                                         const menCount = totalMenDataset.data[dataIndex];
                                         const womenCount = totalWomenDataset.data[dataIndex];
                                         const ratio = menCount / womenCount;
-                                        genderRatioText = `\nGender ratio (M:F): ${ratio.toFixed(4)}`;
+                                        genderRatioText = `\nM:F ratio: ${ratio.toFixed(3)}`;
                                     }
 
-                                    return `Desirability: ${xValue.toFixed(1)} (${percentile.toFixed(1)}th percentile)${genderRatioText}`;
+                                    return `Desirability: ${xValue.toFixed(1)}\nPercentile: ${percentile.toFixed(1)}${genderRatioText}`;
                                 },
                                 label: function(context) {
                                     // When detailed tooltips are disabled, suppress per-dataset lines
@@ -810,9 +826,12 @@
 
                                     if (isFinite(multiplier) && isFinite(ownRarity)) {
                                         const partnerRarity = ownRarity * multiplier;
+                                        const partnerDisplay = partnerRarity < 10
+                                            ? partnerRarity.toFixed(1)
+                                            : Math.round(partnerRarity);
                                         return [
                                             `${datasetLabel}: ${multiplier.toFixed(2)}`,
-                                            `  → partner: 1-in-${Math.round(partnerRarity)}`
+                                            `  → partner: 1-in-${partnerDisplay}`
                                         ];
                                     }
                                     return `${datasetLabel}: ${multiplier}`;
