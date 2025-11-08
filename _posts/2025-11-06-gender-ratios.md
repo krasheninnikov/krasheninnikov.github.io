@@ -7,7 +7,9 @@ sitemap: false
 robots: noindex, nofollow
 ---
 
-Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. The data backs this up: the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% swing in the ratio really matter? Turns out yes – a lot! **In my simulation, a 99th percentile woman (so, 1-in-100) moving from London to the Bay Area can expect to match with someone ~50% rarer (1-in-92 → 1-in-136). On the other hand, men's typical matches become 33% less rare (1-in-108 → 1-in-73).**
+Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. The data backs this up: the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% swing in the ratio really matter? Turns out yes – a lot! 
+
+**In my simulation, a 99th percentile woman (so, 1-in-100) moving from London to the Bay Area can expect to match with someone ~50% rarer (1-in-92 → 1-in-136). On the other hand, men's typical matches become 33% less rare (1-in-108 → 1-in-73).**
 
 <iframe src="/assets/gender-ratio-post/gender_ratio_explorer_chartjs.html" title="Urban gender ratio explorer" width="100%" height="450" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px;" class="gender-ratio-widget"></iframe>
 
@@ -74,7 +76,7 @@ Naively, a 1-in-100 man should match with a 1-in-100 woman. In a perfectly balan
 
 To figure this out, I built a model with three components:
 
-**1. Gender imbalance (from actual population distributions):** Using census data for the 20-30 age range, London has about 5% more women than men, while the Bay Area has about 6% more men than women – 106 men per 100 women. (Background tidbit: the sex ratio at birth is ~105 boys per 100 girls, so even at birth it isn't equal. By adulthood the ratios are mostly driven by migration and mortality; we just use the numbers from census data.)
+**1. Gender imbalance (from actual population distributions):** Using census data for the 20-30 age range, London has about 5% more women than men, while the Bay Area has about 6% more men than women – 106 men per 100 women. (Background tidbit: the ratio at birth is ~105 boys per 100 girls, so even at birth it isn't equal. By adulthood ratios are mostly driven by migration and mortality; we just use the numbers from census data.)
 
 **2. Newcomer effects:** Cities don't just differ in raw numbers – they differ in *who* moves there. The Bay Area attracts many high-achieving tech workers who are predominantly male. I model all these newcomers (both men and women) as averaging around the 90th percentile desirability with 70% of the typical spread – high-achieving but not as diverse as the general population. London's female surplus is probably more similar to the base population – possibly arising from higher female university attendance – so I model those newcomers as typical.
 
@@ -165,7 +167,7 @@ Which framing matters more for real life? It's genuinely unclear. Relationships 
 
 This post presents a very simplified model of a complex social phenomenon:
 
-* **Age preferences ignored:** Men often pursue women across a wider age range than vice versa. Since there are more men than women at most ages in the Bay Area, this amplifies the competition among men. And in London, this could mean tougher competition for older women. The model doesn't capture these dynamics.
+* **Model ignores age preferences:** Men typically pursue younger women, while women typically prefer men their own age or slightly older. Since there are more men than women at most ages in the Bay Area, this amplifies competition as men across different ages often pursue the same younger women. In London, this dynamic could mean tougher competition among older women.
 * **Matching singles instead of those looking to date:** These numbers differ in practice. Relatedly, singlehood varies by age and sex. When constructing the singles pool, I remove the same number of partnered men and women as couples; in reality, those numbers may differ (e.g. women often marry earlier).
 * **Not modeling some people opting out** if they cannot find a suitable match (instead of "dating down"): including this would dampen the core effect, but probably not by much.
 * **Geographic lock-in:** Assumes you can't date across cities.
@@ -276,8 +278,8 @@ Small warning: I made summaries for items 2-6 below with a good bit of LLM assis
 
 
 
-## Appendix D
+## Appendix D: data sources
 
-The *Urban gender ratio explorer* chart combines male/female population by age for major urban areas using official sources: U.S. Census Bureau (American Community Survey 5‑Year, 2023 via the Census API), UK ONS Mid‑Year Estimates (2024), Statistics Canada (2021 Census), Germany Census 2024 (DESTATIS GENESIS, Table 12411‑02‑03‑4), and city statistical releases for Helsinki, Seoul, Tokyo, and Buenos Aires. City‑level sources: [Sydney, Melbourne, Brisbane, Perth, Adelaide](https://www.abs.gov.au/census/find-census-data/datapacks) – 2021 Census (ABS); [Milan](https://dati.comune.milano.it/dataset/ds595_posas_popolazione_per_sesso_eta_e_stato_civile_nel_comune_di/resource/9a12e79f-a7bb-4a6b-bf09-645bb13babfe) – 2023; [Brussels Region](https://bestat.statbel.fgov.be/bestat/crosstable.xhtml?view=fc14c1ce-7361-4d42-a892-fce8e81a1b79) – 2025 (as of Jan 1, Statbel); [Paris Region, Paris (Commune), Marseille](https://www.insee.fr/fr/statistiques/zones/7633062) – 2021 (INSEE RP2021); [Rome](https://www.comune.roma.it/web-resources/cms/documents/02_Popolazione_Annuario_2021.pdf) – 2021 (Annuario Statistico).
+The *Gender ratio explorer* chart combines male/female population by age for major urban areas using official sources: U.S. Census Bureau (American Community Survey 5‑Year, 2023 via the Census API), UK ONS Mid‑Year Estimates (2024), Statistics Canada (2021 Census), Germany Census 2024 (DESTATIS GENESIS, Table 12411-0018 (02‑03‑4)), and city statistical releases for Helsinki, Seoul, Tokyo, and Buenos Aires. City‑level sources: [Sydney, Melbourne, Brisbane, Perth, Adelaide](https://www.abs.gov.au/census/find-census-data/datapacks) – 2021 Census (ABS); [Milan](https://dati.comune.milano.it/dataset/ds595_posas_popolazione_per_sesso_eta_e_stato_civile_nel_comune_di/resource/9a12e79f-a7bb-4a6b-bf09-645bb13babfe) – 2023; [Brussels Region](https://bestat.statbel.fgov.be/bestat/crosstable.xhtml?view=fc14c1ce-7361-4d42-a892-fce8e81a1b79) – 2025 (as of Jan 1, Statbel); [Paris Region, Paris (Commune), Marseille](https://www.insee.fr/fr/statistiques/zones/7633062) – 2021 (INSEE RP2021); [Rome](https://www.comune.roma.it/web-resources/cms/documents/02_Popolazione_Annuario_2021.pdf) – 2021 (Annuario Statistico).
 
 Age bins are normalized into single-year ranges with linear interpolation where ground truth data is not granular enough.

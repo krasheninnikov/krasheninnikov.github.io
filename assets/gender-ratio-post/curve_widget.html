@@ -56,15 +56,14 @@
         .control-table td:first-child {
             font-weight: 500;
             color: #555;
-            width: 240px;
+            width: clamp(140px, 38vw, 220px);
+            font-size: 0.9em;
+            padding-left: 0;
         }
         .control-table td:nth-child(2) { padding-right: 8px; }
         .control-table td:nth-child(3) { padding-left: 8px; }
         .control-table th:nth-child(2) { padding-right: 8px; }
         .control-table th:nth-child(3) { padding-left: 8px; }
-        .control-table input[type="number"] {
-            width: 96px;
-        }
         .control-table .hint {
             font-size: 0.75em;
             color: #888;
@@ -89,6 +88,9 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
+        }
+        .control-table input[type="number"] {
+            width: clamp(64px, 22vw, 96px);
         }
         #singlesShare { width: 96px; }
         input[type="number"].invalid {
@@ -289,7 +291,6 @@
             <div class="chart-wrapper chart-wrapper-top">
                 <canvas id="populationChart"></canvas>
                 <div class="chart-stats-overlay">
-                    <div class="stat-label">Key Statistics</div>
                     <div>Total ratio (M:F): <span class="stat-value" id="popGenderRatio">-</span></div>
                     <div>Singles ratio (M:F): <span class="stat-value" id="popSinglesRatio">-</span></div>
                 </div>

@@ -166,6 +166,23 @@
             height: 275px;
         }
 
+        .axis-end-label {
+            position: absolute;
+            left: 3px;
+            font-size: 14px;
+            color: #555;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .axis-end-label-top {
+            top: 31px;
+        }
+
+        .axis-end-label-bottom {
+            bottom: 46px;
+        }
+
         .loading {
             text-align: center;
             padding: 40px;
@@ -190,15 +207,23 @@
             .chart-container {
                 height: 330px;
             }
+
+            .axis-end-label-top {
+                top: 50px;
+            }
+
+            .axis-end-label-bottom {
+                bottom: 44px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Urban gender ratio explorer</h1>
+        <h1>Gender ratio explorer (cities in 5+ countries)</h1>
 
         <div class="info">
-            You can select multiple cities. Ratio above 1.0 (y-axis value) means more males than females.
+            Hover over the chart to see age-specific ratios; click to lock the tooltip in place.
         </div>
 
         <div class="main-content">
@@ -216,6 +241,8 @@
 
             <div class="chart-area">
                 <div class="chart-container">
+                    <div class="axis-end-label axis-end-label-top">M&uarr;</div>
+                    <div class="axis-end-label axis-end-label-bottom">F&darr;</div>
                     <canvas id="chart"></canvas>
                 </div>
             </div>
@@ -841,7 +868,7 @@
                         y: {
                             title: {
                                 display: true,
-                                text: 'Male / Female Ratio'
+                                text: 'M : F  ratio'
                             },
                             grid: {
                                 color: '#e5e5e5'
@@ -921,7 +948,7 @@
             }
 
             // Reset info text when cities are selected
-            infoBox.textContent = 'You can select multiple cities. Ratio above 1.0 (y-axis value) means more males than females.';
+            infoBox.textContent = 'Hover over the chart to see age-specific ratios; click to lock the tooltip in place.';
 
             const datasets = selectedCitiesArray.map((city, index) => {
                 const cityData = allData[city];
