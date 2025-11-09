@@ -66,6 +66,9 @@ details.appendix-d-sources { margin: 0.5rem 0 1rem; }
 details.appendix-d-sources summary { cursor: pointer; font-weight: 600; }
 details.appendix-d-sources .appendix-d-body { margin-top: 0.45rem; border-left: 2px solid #ddd; padding-left: 0.85rem; }
 details.appendix-d-sources .appendix-d-body ul { margin: 0.35rem 0; }
+details.appendix-a-singles { margin: 0.5rem 0 1rem; }
+details.appendix-a-singles summary { cursor: pointer; font-weight: 600; }
+details.appendix-a-singles .appendix-a-body { margin-top: 0.45rem; border-left: 2px solid #ddd; padding-left: 0.85rem; }
 </style>
 
 ## **1. Measuring dating success through "rarity"**
@@ -159,7 +162,7 @@ Two forces drive this:
 
 The multiplier curve above (left) shows this isn't uniform – effects are minimal for average people, grow substantially through the 90th percentiles, then again diminish slightly at the very top.
 
-**Could effect strength be an artifact of perfect assortative matching?** Real dating involves a lot of randomness unique to each couple (e.g. unusually great chemistry). Turns out including randomness into the model doesn't affect the headline result – "rarity multipliers from moving cities" stay very similar to ones we got above without randomness (more detail in Appendix B).
+**Could effect strength be an artifact of perfect assortative matching?** Real dating involves a lot of randomness unique to each couple (e.g. unusually great chemistry). Turns out including randomness into the model doesn't affect the headline result – "rarity multipliers from moving cities" stay very similar to the ones we got above without randomness (more detail in Appendix B).
 
 ## **5. Percentiles vs. rarity: how big are these effects really?**
 
@@ -184,23 +187,30 @@ Despite these simplifications, the core insight holds: seemingly small demograph
 
 ## **7. The bottom line**
 
-Geography affects dating more than I expected. Of course other stuff like career, lifestyle, and social networks matter too. But for those wondering whether gender ratios actually matter – yes, they do, and probably more than you thought. If you're single and thinking about a move, this factor might be worth considering.
+Geography affects dating more than I expected. Of course other stuff like career, social networks, and lifestyle matters too. But for those wondering whether gender ratios actually matter – yes, they do, and probably more than you thought. If you're single and thinking about a move, this factor might be worth considering.
 
 ## Appendix A: try it yourself
 
 <iframe src="/assets/gender-ratio-post/curve_widget.html" title="Dating market playground" loading="lazy" width="100%" height="1100" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px;"></iframe>
 
-This widget calculates the singles by removing the same number from both genders as paired couples. First, it calculates how many couples to remove:
+<details class="appendix-a-singles">
+  <summary>Show singles calculation</summary>
+  <div class="appendix-a-body" markdown="1">
+We calculate the number of singles by removing the same number of ppl from both genders as paired couples. 
 
-`couplesToRemove = (1 - singlesShare) × (menTotal + womenTotal) / 2`
+First, calculate how many couples to remove:
 
-(capped at the smaller population to ensure you never remove more people than exist). Then it subtracts this same number from both:
+`couplesToRemove = (1 - singlesShare) × (menTotal + womenTotal)/2`
+
+(capped at the smaller population to ensure we never remove more people than exist). Then we just subtract `couplesToRemove` from both:
 
 `menSingles = menTotal - couplesToRemove`
 
 `womenSingles = womenTotal - couplesToRemove`
 
 For example, if Singles = 60%, then 40% are paired. With 110,000 men and 104,000 women (total 214,000), we get couplesToRemove = 0.4 × 214,000 / 2 = 42,800. Subtracting 42,800 from each gender leaves 67,200 single men and 61,200 single women. This amplifies the original 6% imbalance (110k:104k) into a 10% imbalance among singles (67.2k:61.2k).
+  </div>
+</details>
 
 ## Appendix B: gender ratio multipliers are surprisingly robust to noisy matching
 
@@ -216,7 +226,7 @@ I add random noise (normal distribution, SD=1.0) to these utilities before ranki
 
 For median people (log-rarity ≈ 0.7), the noise dominates – preferences become mostly random. For 99th percentile people (log-rarity ≈ 4.6), noise is \~20% of signal strength.
 
-### Results: compression without changed multipliers
+### Results: noise causes compression but preserves multipliers
 
 I ran 15k simulations of a scenario where 1\) each person in a population of 25k noisily ranks all members of the opposite gender, and 2\) people are matched based on their preferences with the Gale-Shapley algorithm.
 
@@ -251,7 +261,11 @@ When taking imbalanced distributions into account, the multipliers (rarity in th
 <!-- Note: Multipliers reflect Bay ÷ London at 1-in-100 rarity, using geometric mean across K=3,5,7 from
      experiments/dating_model_run_20250929_205723_5k_runs_noise1/raw_results_K{3,5,7}.csv (Global baseline, noise=1.0). -->
 
-Nearly identical to perfect sorting, despite substantially randomized preferences.
+This is nearly identical to perfect sorting, despite substantially randomized preferences and overall regression to the mean in both cities. Plot like the one in the *Partner rarity multiplier* figure in the main post:
+
+<img src="/images/gender-ratio-post/multipliers_global_to_city_K3_5_7.png" alt="Rarity multipliers for Bay Area vs London after adding noisy preferences" loading="lazy" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 1rem 0;" />
+
+(Note that since there are only 25k people in this simulation, results for rarities over 1k are quite noisy. To reduce noise and bias, half of my Gale-Shapley runs set men as "proposers", and women are proposers in the other half.)
 
 ### Why this persists
 
@@ -264,21 +278,26 @@ The simulation demonstrates this robustness empirically. The mechanism remains s
 **Implication: demographics matter a lot even when individual preferences are highly personal.**
 
 ## Appendix C: related work
-Small warning: I made summaries for items 2-6 below with a good bit of LLM assistance with both writing and understanding the papers, so the chance of inaccuracies is likely higher than usual.
 
-1. Falkovich – "Skewed and the Screwed" (2020): Falkovich's post is a great complement to this one. We both highlight the same amplification effect: once couples pair off, initially-small gender gaps grow larger among singles. From there, he looks at age preferences and political tribes, while I take a quantitative angle – simulating cities, who moves there, and how desirability is distributed. [Putanumonit blog](https://putanumonit.com/2020/01/26/skewed-and-the-screwed/)
-2. Choo & Siow – "Who Marries Whom and Why" (2006): A marriage model incorporating both overall gains from pairing up and couple-specific "chemistry," showing how demographics move who pairs with whom and who stays single, estimated on 1970s U.S. data. It explains why adding "chemistry" makes matches less tightly aligned by rank – top people don't always pair with top people – but the direction of sex-ratio effects still shows up, matching my robustness checks in Appendix B. [Journal of Political Economy](https://www.journals.uchicago.edu/doi/abs/10.1086/498585)
-3. Galichon & Salanié – "Cupid's Invisible Hand: Social Surplus and Identification in Matching Models": Generalizing Choo–Siow, the paper provides practical tools for estimating how head-count or entrant-mix shifts change real matching markets (focusing on who matches with whom, and how much benefit they derive from it). [Review of Economic Studies](https://academic.oup.com/restud/article/89/5/2600/6478301)
-4. Azevedo & Leshno – "A Supply and Demand Framework for Two-Sided Matching Markets" (2016): Large matching markets behave like admissions: each side's selectivity shifts until offers and acceptances line up. Change head-counts or who enters (e.g., more high-achieving men in the Bay Area) and those selectivity levels move predictably – somewhat similarly to what shows up as my "rarity multipliers." [Journal of Political Economy](https://www.journals.uchicago.edu/doi/abs/10.1086/687476)
-5. Menzel – "Large Matching Markets as Two-Sided Demand Systems" (2015): In large markets with idiosyncratic tastes, aggregate patterns converge to a unique outcome even though many micro matchings could exist. Individual randomness is real, but market-level averages are tightly pinned down. This maybe helps explain why my rarity multipliers barely change after adding preference noise in Appendix B. [Econometrica](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA12299)
-6. Ashlagi, Kanoria & Leshno – "Unbalanced Random Matching Markets: The Stark Effect of Competition" (2017): In large markets with largely independent rankings, even tiny numerical tilts create big advantages for the scarcer side, and the stable outcome is essentially unique. With just one extra person (n vs. n+1), the scarce side's average match is around their \~7th choice while the numerous side's is \~145th when n=1,000. <a href="https://www.journals.uchicago.edu/doi/full/10.1086/689869">Journal of Political Economy</a>
-7. There is also the Discourse:
+1. The post "[Skewed and the Screwed](https://putanumonit.com/2020/01/26/skewed-and-the-screwed/)" from Falkovich (2020) is a great complement to this one. Both posts highlight the same amplification effect: once couples pair off, initially-small gender gaps grow larger among singles. From there, Falkovich looks at age preferences and political tribes, while I take a quantitative angle – simulating cities and desirability distributions.
+2. [This post on the OkCupid blog](https://theblog.okcupid.com/undressed-whats-the-deal-with-the-age-gap-in-relationships-3143a2ca5178) (Markowitz, 2017)  explores people's age preferences using data you can probably only get when running a dating site (who messages who + response rates, broken down by age of both the sender and the recipient). The post argues that breaking the "older-man-younger-woman" norm is pretty easy, and is often beneficial.
+3. There is also the Discourse:
 
    <img src="/images/gender-ratio-post/art-hoes-tao.jpg" alt="50,000 art hoes will save San Francisco" loading="lazy" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;" />
 
    ([twitter link](https://x.com/taotechic/status/1964551131977437674))
 
-   Relatedly, [Grimes](https://x.com/Grimezsz/status/1984327032390787400): "Someone said to me that the way to import 40 thousand art hoes to SF to teach engineers love (and thus save humankind) would be to open an elite fashion school.  Considering the materials science infrastructure this is actually the obvious path forward for fashion"
+   Relatedly, [Grimes](https://x.com/Grimezsz/status/1984327032390787400): *"Someone said to me that the way to import 40 thousand art hoes to SF to teach engineers love (and thus save humankind) would be to open an elite fashion school.  Considering the materials science infrastructure this is actually the obvious path forward for fashion"*
+
+### Econ papers
+
+Many econ papers are relevant for the dating market model presented in this post. Warning: I made paper summaries below using a good bit of LLM assistance, so the chance of inaccuracies is higher than usual.
+
+4. Choo & Siow – "Who Marries Whom and Why" (2006): A marriage model incorporating both overall gains from pairing up and couple-specific "chemistry," showing how demographics move who pairs with whom and who stays single, estimated on 1970s U.S. data. It explains why adding "chemistry" makes matches less tightly aligned by rank – top people don't always pair with top people – but the direction of sex-ratio effects still shows up, matching my robustness checks in Appendix B. [Journal of Political Economy](https://www.journals.uchicago.edu/doi/abs/10.1086/498585)
+5. Galichon & Salanié – "Cupid's Invisible Hand: Social Surplus and Identification in Matching Models": Generalizing Choo–Siow, the paper provides practical tools for estimating how head-count or entrant-mix shifts change real matching markets (focusing on who matches with whom, and how much benefit they derive from it). [Review of Economic Studies](https://academic.oup.com/restud/article/89/5/2600/6478301)
+6. Azevedo & Leshno – "A Supply and Demand Framework for Two-Sided Matching Markets" (2016): Large matching markets behave like admissions: each side's selectivity shifts until offers and acceptances line up. Change head-counts or who enters (e.g., more high-achieving men in the Bay Area) and those selectivity levels move predictably – somewhat similarly to what shows up as my "rarity multipliers." [Journal of Political Economy](https://www.journals.uchicago.edu/doi/abs/10.1086/687476)
+7. Menzel – "Large Matching Markets as Two-Sided Demand Systems" (2015): In large markets with idiosyncratic tastes, aggregate patterns converge to a unique outcome even though many micro matchings could exist. Individual randomness is real, but market-level averages are tightly pinned down. This maybe helps explain why my rarity multipliers barely change after adding preference noise in Appendix B. [Econometrica](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA12299)
+8. Ashlagi, Kanoria & Leshno – "Unbalanced Random Matching Markets: The Stark Effect of Competition" (2017): In large markets with largely independent rankings, even tiny numerical tilts create big advantages for the scarcer side, and the stable outcome is essentially unique. With just one extra person (n vs. n+1), the scarce side's average match is around their \~7th choice while the numerous side's is \~145th when n=1,000. <a href="https://www.journals.uchicago.edu/doi/full/10.1086/689869">Journal of Political Economy</a>
 
 
 

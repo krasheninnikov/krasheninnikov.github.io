@@ -660,19 +660,48 @@
             locked: false
         };
 
+        // Custom tooltip positioner so multiplier tooltips originate from baseline (1.0) line
+        if (Chart?.Tooltip?.positioners && !Chart.Tooltip.positioners.baseline) {
+            Chart.Tooltip.positioners.baseline = function(elements, eventPosition) {
+                if (!elements.length) return false;
+                const chart = elements[0].element?.$context?.chart;
+                if (!chart) return Chart.Tooltip.positioners.average(elements, eventPosition);
+
+                const index = elements[0].index ?? 0;
+                const baselineIndex = chart.data.datasets.findIndex(d => d.label === 'Baseline (1.0)');
+                if (baselineIndex === -1) return Chart.Tooltip.positioners.average(elements, eventPosition);
+
+                const baselineMeta = chart.getDatasetMeta(baselineIndex);
+                const baselineElement = baselineMeta?.data?.[index];
+                if (!baselineElement) return Chart.Tooltip.positioners.average(elements, eventPosition);
+
+                return { x: baselineElement.x, y: baselineElement.y };
+            };
+        }
+
         // Helper to compute anchor position for a given index
-        function anchorForIndex(chart, index) {
+        function anchorForIndex(chart, index, options = {}) {
             const xScale = chart.scales.x;
             const yScale = chart.scales.y;
-            const ds0 = chart.data.datasets?.[0];
-            const pt = ds0?.data?.[index];
+            const datasets = chart.data.datasets || [];
+            let ds = datasets[0];
+
+            if (options.datasetLabel) {
+                const explicit = datasets.find(d => d.label === options.datasetLabel);
+                if (explicit) ds = explicit;
+            } else if (typeof options.datasetIndex === 'number' && datasets[options.datasetIndex]) {
+                ds = datasets[options.datasetIndex];
+            }
+
+            const pt = ds?.data?.[index];
+            const fallbackLabel = chart.data.labels?.[index] ?? index;
 
             const xVal = (pt && typeof pt === 'object' && 'x' in pt)
                 ? pt.x
-                : (chart.data.labels?.[index] ?? index);
+                : fallbackLabel;
             const yVal = (pt && typeof pt === 'object' && 'y' in pt)
                 ? pt.y
-                : (ds0?.data?.[index] ?? 0);
+                : (ds?.data?.[index] ?? 0);
 
             const x = xScale.getPixelForValue(xVal);
             const y = yScale ? yScale.getPixelForValue(yVal)
@@ -808,8 +837,11 @@
                             display: false  // We use shared legend
                         },
                         tooltip: {
+                            position: 'baseline',
                             mode: 'index',
                             intersect: false,
+                            bodyFont: { size: 14 },
+                            titleFont: { size: 14 },
                             callbacks: {
                                 title: function(context) {
                                     const ownRarity = context[0].raw.x;
@@ -830,11 +862,11 @@
                                             ? partnerRarity.toFixed(1)
                                             : Math.round(partnerRarity);
                                         return [
-                                            `${datasetLabel}: ${multiplier.toFixed(2)}`,
+                                            `${datasetLabel}: ×${multiplier.toFixed(2)}`,
                                             `  → partner: 1-in-${partnerDisplay}`
                                         ];
                                     }
-                                    return `${datasetLabel}: ${multiplier}`;
+                                    return `${datasetLabel}: ×${multiplier}`;
                                 }
                             }
                         }
@@ -918,7 +950,10 @@
                     srcActive.push({ datasetIndex, index });
                 });
                 sourceChart.setActiveElements(srcActive);
-                sourceChart.tooltip.setActiveElements(srcActive, anchorForIndex(sourceChart, index));
+                sourceChart.tooltip.setActiveElements(
+                    srcActive,
+                    anchorForIndex(sourceChart, index, { datasetLabel: 'Baseline (1.0)' })
+                );
                 sourceChart.update('none');
 
                 const tgtActive = [];
@@ -926,7 +961,10 @@
                     tgtActive.push({ datasetIndex, index });
                 });
                 targetChart.setActiveElements(tgtActive);
-                targetChart.tooltip.setActiveElements(tgtActive, anchorForIndex(targetChart, index));
+                targetChart.tooltip.setActiveElements(
+                    tgtActive,
+                    anchorForIndex(targetChart, index, { datasetLabel: 'Baseline (1.0)' })
+                );
                 targetChart.update('none');
             }
         }
