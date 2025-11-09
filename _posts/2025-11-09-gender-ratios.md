@@ -4,8 +4,7 @@ title: "Gender ratios affect dating more than you think"
 permalink: /gender-ratios/
 ---
 
-Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. The data backs this up: the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% swing in the ratio really matter? Turns out yes – a lot! 
-
+Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. The data backs this up: the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% swing in the ratio really matter? Turns out yes – a lot!<br><br>
 **In my simulation, a 99th percentile woman (so, 1-in-100) moving from London to the Bay Area can expect to match with someone ~50% rarer (1-in-92 → 1-in-136). On the other hand, men's typical matches become 33% less rare (1-in-108 → 1-in-73).**
 
 <iframe src="/assets/gender-ratio-post/gender_ratio_explorer_chartjs.html" title="Urban gender ratio explorer" width="100%" height="450" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px;" class="gender-ratio-widget"></iframe>
@@ -159,7 +158,7 @@ Two forces drive this:
 
 The multiplier curve above (left) shows this isn't uniform – effects are minimal for average people, grow substantially through the 90th percentiles, then again diminish slightly at the very top.
 
-**Could effect strength be an artifact of perfect assortative matching?** Real dating involves a lot of randomness unique to each couple (e.g. unusually great chemistry). Turns out including randomness into the model doesn't affect the headline result – "rarity multipliers from moving cities" stay very similar to the ones we got above without randomness (more detail in Appendix B).
+**Could the effect strength be an artifact of perfect assortative matching?** Real dating involves a lot of randomness unique to each couple (e.g. unusually great chemistry). Turns out including randomness into the model doesn't affect the headline result – "rarity multipliers from moving cities" stay very similar to the ones we got above without randomness (more detail in Appendix B).
 
 ## **5. Percentiles vs. rarity: how big are these effects really?**
 
@@ -172,7 +171,7 @@ Which framing matters more for real life? It's genuinely unclear. Relationships 
 This post presents a very simplified model of a complex social phenomenon:
 
 * **Model ignores age preferences:** Men typically pursue younger women, while women typically prefer men their own age or slightly older. Since there are more men than women at most ages in the Bay Area, this amplifies competition as men across different ages often pursue the same younger women. In London, this dynamic could mean tougher competition among older women.
-* **Matching singles instead of those looking to date:** These numbers differ in practice. Relatedly, singlehood varies by age and sex. When constructing the singles pool, I remove the same number of partnered men and women as couples; in reality, those numbers may differ (e.g. women often marry earlier).
+* **Matching singles instead of those looking to date:** These numbers differ in practice. Relatedly, singlehood rates vary by age and sex. When constructing the singles pool, I remove the same number of partnered men and women as couples; in reality, those numbers may differ (e.g. women often marry earlier).
 * **Not modeling some people opting out** if they cannot find a suitable match (instead of "dating down"): including this would dampen the core effect, but probably not by much.
 * **Geographic lock-in:** Assumes you can't date across cities.
 * **Single axis of desirability:** In reality different people value different things; there are many communities with somewhat different desirability axes.
@@ -185,6 +184,12 @@ Despite these simplifications, the core insight holds: seemingly small demograph
 ## **7. The bottom line**
 
 Geography affects dating more than I expected. Of course other stuff like career, social networks, and lifestyle matters too. But for those wondering whether gender ratios actually matter – yes, they do, and probably more than you thought. If you're single and thinking about a move, this factor might be worth considering.
+
+<br>
+
+---
+
+<br>
 
 ## Appendix A: try it yourself
 
