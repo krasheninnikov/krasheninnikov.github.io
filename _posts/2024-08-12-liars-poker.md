@@ -1,11 +1,10 @@
 ---
 layout: post
-# title: "Liar’s poker: a fun card game my friend invented"
-title: "Liar’s poker: a new card game you should try"
+title: "Liar’s poker: a cool card game you should try"
 permalink: /liars-poker/
 ---
 
-This post is about a card game my friend Neel Alex invented, which many of our friends and families now like a lot. The game is similar to [liar’s dice](https://en.wikipedia.org/wiki/Liar%27s_dice) and [bullshit](https://en.wikipedia.org/wiki/Cheat_(game)), and uses [poker hands](https://en.wikipedia.org/wiki/List_of_poker_hands#Hand-ranking_categories). The game is fast-paced and very fun: you get to bluff and guess and mess with other people’s guesses.
+This post is about a card game my friend Neel Alex taught me that's become very popular in our social circles. The game is similar to [liar’s dice](https://en.wikipedia.org/wiki/Liar%27s_dice) and [bullshit](https://en.wikipedia.org/wiki/Cheat_(game)), and uses [poker hands](https://en.wikipedia.org/wiki/List_of_poker_hands#Hand-ranking_categories). The game is fast-paced and very fun: you get to bluff and guess and mess with other people’s guesses.
 
 
 ## Rules

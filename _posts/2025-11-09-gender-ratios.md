@@ -2,9 +2,6 @@
 layout: post
 title: "Gender ratios affect dating more than you think"
 permalink: /gender-ratios/
-hidden: true
-sitemap: false
-robots: noindex, nofollow
 ---
 
 Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. The data backs this up: the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% swing in the ratio really matter? Turns out yes – a lot! 
