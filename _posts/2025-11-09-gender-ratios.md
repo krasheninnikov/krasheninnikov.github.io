@@ -232,10 +232,11 @@ For median people (log-rarity ≈ 0.7), the noise dominates – preferences beco
 
 I ran 15k simulations of a scenario where 1\) each person in a population of 25k noisily ranks all members of the opposite gender, and 2\) people are matched based on their preferences with the Gale-Shapley algorithm.
 
-Even without any imbalance – with identical distributions and ratio=1 – noise causes substantial regression to the mean:
+Even without any imbalance – with identical distributions and ratio=1 – noise causes substantial regression to the mean: e.g. a 1-in-100 person of either gender usually matches with someone between 1-in-53 and 1-in-62. See full table below.
 
-**Noise model table**
-<div class="table-wrap" markdown="1">
+<details class="collapsible-table">
+  <summary>Show noise model table</summary>
+  <div class="table-wrap" markdown="1">
   <!-- Source: experiments/dating_model_run_20250929_205723_5k_runs_noise1 (Global rows, noise=1.0). Ranges aggregate across K=3/5/7/15 with 1‑decimal rounding up to 1‑in‑10, integers otherwise. For 1‑in‑1000/2000/5000 the ranges exclude K=15 (K=3/5/7 only) since there are not enough ppl for K=15. -->
 
 | Your Desirability | Perfect Sorting | With Noise |
@@ -252,9 +253,10 @@ Even without any imbalance – with identical distributions and ratio=1 – nois
 | 1-in-2000 | 1-in-2000 | 1-in-907 to 1-in-1083 |
 | 1-in-5000 | 1-in-5000 | 1-in-2076 to 1-in-2626 |
 
-</div>
+  </div>
+</details>
 
-When taking imbalanced distributions into account, the multipliers (rarity in the Bay divided by rarity in London) for our 1-in-100 people from before remain stable despite the noise:
+When taking imbalanced distributions into account, the multipliers (expected match's rarity in the Bay divided by match's rarity in London) for our 1-in-100 people from before remain stable despite the noise:
 
 * **Men moving London → Bay:** 0.71× partner rarity
 * **Women moving London → Bay:** 1.54× partner rarity
@@ -275,7 +277,7 @@ The puzzle: *distributional* effects also persist. The Bay Area's concentration 
 
 The simulation demonstrates this robustness empirically. The mechanism remains somewhat unclear – though the language models I consulted say these results (persistent substantial difference in dating success) aren't that surprising given our specific model of noisy preferences and the related works discussed in the next section.
 
-**Implication: demographics matter a lot even when individual preferences are highly personal.**
+**Implication: demographics matter a lot even when individual preferences are highly idiosyncratic.**
 
 ## Appendix C: related work
 
