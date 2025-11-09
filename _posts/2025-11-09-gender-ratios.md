@@ -234,9 +234,8 @@ I ran 15k simulations of a scenario where 1\) each person in a population of 25k
 
 Even without any imbalance – with identical distributions and ratio=1 – noise causes substantial regression to the mean:
 
-<details class="collapsible-table">
-  <summary>Show noise model table</summary>
-  <div class="table-wrap" markdown="1">
+**Noise model table**
+<div class="table-wrap" markdown="1">
   <!-- Source: experiments/dating_model_run_20250929_205723_5k_runs_noise1 (Global rows, noise=1.0). Ranges aggregate across K=3/5/7/15 with 1‑decimal rounding up to 1‑in‑10, integers otherwise. For 1‑in‑1000/2000/5000 the ranges exclude K=15 (K=3/5/7 only) since there are not enough ppl for K=15. -->
 
 | Your Desirability | Perfect Sorting | With Noise |
@@ -253,8 +252,7 @@ Even without any imbalance – with identical distributions and ratio=1 – nois
 | 1-in-2000 | 1-in-2000 | 1-in-907 to 1-in-1083 |
 | 1-in-5000 | 1-in-5000 | 1-in-2076 to 1-in-2626 |
 
-  </div>
-</details>
+</div>
 
 When taking imbalanced distributions into account, the multipliers (rarity in the Bay divided by rarity in London) for our 1-in-100 people from before remain stable despite the noise:
 
