@@ -1,6 +1,8 @@
 ---
 layout: page
 permalink: /about/
+title: About
+show_title: false
 ---
 
-{% include_relative about.md %}
+{% include about.md %}
