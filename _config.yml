@@ -91,3 +91,14 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+# Exclude widget files and verification page from sitemap
+defaults:
+  - scope:
+      path: "assets/"
+    values:
+      sitemap: false
+  - scope:
+      path: "googleda87bcdeadb3263b.html"
+    values:
+      sitemap: false
