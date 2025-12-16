@@ -1,4 +1,4 @@
-I am a final-year PhD student at Cambridge, working on AI safety with David Krueger and Rich Turner. I think it's plausible that we'll build AI systems capable of doing *everything humans can do using computers* in the next decade, and that we should try ensure that deploying such systems won't lead humanity to permanently lose control over our future.
+I am a final-year PhD student at Cambridge, working on AI safety with David Krueger and Rich Turner. I think we might be less than a decade away from AI systems capable of doing everything humans can do using computers -- including further AI research. I want to make sure this won't lead humanity to permanently lose control of our future.
 
 I'm into a pretty broad range of research topics, lately focusing on a mix of interpretability / science of deep learning / control / security. 
 My claim to fame is coining "out-of-context learning" in an early version of [this paper](/implicit-meta-learning/). More recently, we showed that [language models linearly encode at which point of training they learned a specific fact](/training-order/).
