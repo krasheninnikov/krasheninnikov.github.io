@@ -1,9 +1,8 @@
-I think we might be less than a decade away from AI systems capable of doing everything humans can do using computers -- including further AI research. I want to make sure this won't lead humanity to permanently lose control of our future. 
+I did my PhD in AI safety at Cambridge with David Krueger and Rich Turner, finishing in December 2025. Why AI safety? I think we might be less than a decade away from AI systems capable of doing everything humans can do using computers -- including further AI research. I want to make sure this won't lead humanity to permanently lose control of our future.
 
-**Research.** I'm into a pretty broad range of research, lately focusing on a mix of interpretability / science of deep learning / control / security. My claim to fame is coining "out-of-context learning" in an early version of [this paper](__/implicit-meta-learning/__). More recently, we showed that [language models linearly encode at which point of training they learned a specific fact](__/training-order/__). 
+I'm into a pretty broad range of research, lately focusing on a mix of interpretability / science of deep learning / control / security. My claim to fame is coining "out-of-context learning" in an early version of [this paper](/implicit-meta-learning/). More recently, we showed that [language models linearly encode at which point of training they learned a specific fact](/training-order/).
 
-**Background.** I did my PhD in AI safety at Cambridge with David Krueger and Rich Turner, finishing in December 2025. I'm excited to start as an Anthropic Fellow in January. Before Cambridge, I earned my MSc in AI from the University of Amsterdam, and worked with <a href="https://humancompatible.ai/about">UC Berkeley's Center for Human-Compatible AI</a> during and after my studies. I also spent a year at Sony AI Zurich researching deep RL and robotics.
-
+Before Cambridge, I earned my MSc in AI from the University of Amsterdam, and worked with <a href="https://humancompatible.ai/about">UC Berkeley's Center for Human-Compatible AI</a> during and after my studies. I also spent a year at Sony AI Zurich researching deep RL and robotics.
 
 
 <!-- # Publications
