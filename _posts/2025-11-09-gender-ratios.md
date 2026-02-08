@@ -4,8 +4,8 @@ title: "Gender ratios affect dating more than you think"
 permalink: /gender-ratios/
 ---
 
-Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. The data backs this up: the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% swing in the ratio really matter? Turns out yes – a lot!<br><br>
-**In my simulation, a 99th percentile woman (so, 1-in-100) moving from London to the Bay Area can expect to match with someone ~50% rarer (1-in-92 → 1-in-136). On the other hand, men's typical matches become 33% less rare (1-in-108 → 1-in-73).**
+Stereotypically, dating in the Bay Area is pretty rough for straight men – too many tech workers competing for too few women. And indeed, the Bay Area has about 6% more men than women in their 20s. London and New York, meanwhile, both tilt female by about 5%. But does an 11% difference in the ratio really matter? Turns out it does – a lot!<br><br>
+**In my simulation, a 99th percentile woman (so, 1-in-100) moving from London to the Bay Area can expect to match with someone ~50% rarer (1-in-92 → 1-in-136). Meanwhile, a 99th percentile man sees his match become ~33% less rare (1-in-108 → 1-in-73).**
 
 <iframe src="/assets/gender-ratio-post/gender_ratio_explorer_chartjs.html" title="Urban gender ratio explorer" width="100%" height="450" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px;" class="gender-ratio-widget"></iframe>
 
@@ -69,7 +69,7 @@ details.appendix-a-singles .appendix-a-body { margin-top: 0.45rem; border-left: 
 
 ## **1. Measuring dating success through "rarity"**
 
-Imagine ranking everyone on general desirability – some mix of attractiveness, intelligence, happiness, and other valued traits. We don't need to define this precisely, just accept that some rough ordering exists.
+Imagine ranking everyone on general desirability: some mix of attractiveness, intelligence, happiness, and other valued traits. We don't need to define this precisely — it's enough that some rough ordering exists.
 
 If you're "1-in-100" among your gender, you're in the top 1% of men or women. (Quick reference: 1-in-2 = 50th percentile, 1-in-10 = 90th percentile, 1-in-100 = 99th percentile.)
 
@@ -81,7 +81,7 @@ To figure this out, I built a model with three components:
 
 **1. Gender imbalance (from actual population distributions):** Using census data for the 20-30 age range, London has about 5% more women than men, while the Bay Area has about 6% more men than women – 106 men per 100 women. (Background tidbit: the ratio at birth is ~105 boys per 100 girls, so even at birth it isn't equal. By adulthood ratios are mostly driven by migration and mortality; we just use the numbers from census data.)
 
-**2. Newcomer effects:** Cities don't just differ in raw numbers – they differ in *who* moves there. The Bay Area attracts many high-achieving tech workers who are predominantly male. I model all these newcomers (both men and women) as averaging around the 90th percentile desirability with 70% of the typical spread – high-achieving but not as diverse as the general population. London's female surplus is probably more similar to the base population – possibly arising from higher female university attendance – so I model those newcomers as typical.
+**2. Newcomer effects:** The *type* of people a city attracts matters too. The Bay Area attracts many high-achieving tech workers who are predominantly male. I model all these newcomers (both men and women) as averaging around the 90th percentile desirability with 70% of the typical spread – high-achieving but not as diverse as the general population. London's female surplus is probably more similar to the base population – possibly arising from higher female university attendance – so I model those newcomers as typical.
 
 <iframe src="/assets/gender-ratio-post/city_comparison_split.html?show=population" title="Population distributions: SF Bay vs London" loading="lazy" width="100%" height="500" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px;" class="populations-widget"></iframe>
 
@@ -154,17 +154,17 @@ Two forces drive this:
 
 **1. Raw numbers:** The Bay Area simply has more single men than single women. In any matching market, the scarcer side gets better matches. It's supply and demand.
 
-**2. Distribution shape:** But it's not just about counts. Newcomers to the Bay Area are predominantly high-achieving tech workers skewing male – which makes the top of the male distribution especially crowded. A 95th percentile man courting a 95th percentile woman in the Bay Area faces more competition from 96th, 97th, and 98th percentile men than he would in a city with a more typical distribution.
+**2. Distribution shape:** The Bay Area draws a lot of high-achieving tech workers, mostly men. This makes the top of the male distribution especially crowded. A 95th percentile man courting a 95th percentile woman in the Bay Area faces more competition from 96th, 97th, and 98th percentile men than he would in a city with a more typical distribution.
 
 The multiplier curve above (left) shows this isn't uniform – effects are minimal for average people, grow substantially through the 90th percentiles, then again diminish slightly at the very top.
 
-**Could the effect strength be an artifact of perfect assortative matching?** Real dating involves a lot of randomness unique to each couple (e.g. unusually great chemistry). Turns out including randomness into the model doesn't affect the headline result – "rarity multipliers from moving cities" stay very similar to the ones we got above without randomness (more detail in Appendix B).
+**Could the effect strength be an artifact of perfect assortative matching?** Real dating involves a lot of randomness unique to each couple (e.g. unusually great chemistry). Turns out including randomness in the model doesn't change the headline result – "rarity multipliers from moving cities" stay very similar to the ones we got above without randomness (more detail in Appendix B).
 
 ## **5. Percentiles vs. rarity: how big are these effects really?**
 
 There's an interesting tension in how to interpret these results. In percentile terms, the changes look modest – going from matching with the 99.1st percentile to the 98.6th percentile doesn't sound like much. But in rarity terms, that same change (1-in-108 to 1-in-73) means your partner is 33% less rare.
 
-Which framing matters more for real life? It's genuinely unclear. Relationships are much more than the sum of desirability scores – the interaction, vibes, chemistry, and feelings matter enormously. For any individual relationship, those factors likely swamp these statistical differences. But at the population level, these shifts still represent meaningful changes in your dating options.
+Which framing matters more for real life? It's genuinely unclear. Relationships are much more than the sum of desirability scores – the interaction, vibes, chemistry, and feelings matter enormously. For any individual relationship, those factors likely swamp these statistical differences. But across the population, they still noticeably shift your dating options.
 
 ## **6. Caveats**
 
@@ -177,9 +177,9 @@ This post presents a very simplified model of a complex social phenomenon:
 * **Single axis of desirability:** In reality different people value different things; there are many communities with somewhat different desirability axes.
 * **Newcomer assumptions:** The Bay Area tech migration parameters (90th percentile mean, 0.7× standard deviation) are educated guesses.
 
-In addition, cultural factors play a substantial role. Even with favorable ratios (e.g. women in the Bay Area), dating might feel harder when many in the available pool don't share your relationship priorities or timeline.
+There are also cultural factors. Even with favorable ratios (e.g. women in the Bay Area), dating might feel harder when many in the available pool don't share your relationship priorities or timeline.
 
-Despite these simplifications, the core insight holds: seemingly small demographic shifts can have surprisingly large impacts on dating markets, especially for those at the extremes of the distribution.
+Still, the basic point stands: seemingly small demographic shifts can have outsized effects on dating markets, especially at the top of the distribution.
 
 ## **7. The bottom line**
 
@@ -275,7 +275,7 @@ Persistence of the part of the effect attributable to basic gender ratios is not
 
 The puzzle: *distributional* effects also persist. The Bay Area's concentration of high-achieving men still creates asymmetric effects, even with noisy preferences. I expected this to mostly wash out – it doesn't.
 
-The simulation demonstrates this robustness empirically. The mechanism remains somewhat unclear – though the language models I consulted say these results (persistent substantial difference in dating success) aren't that surprising given our specific model of noisy preferences and the related works discussed in the next section.
+The mechanism remains somewhat unclear – though the language models I consulted say these results (persistent substantial difference in dating success) aren't that surprising given our specific model of noisy preferences and the related works discussed in the next section.
 
 **Implication: demographics matter a lot even when individual preferences are highly idiosyncratic.**
 
